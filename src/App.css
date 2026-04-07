@@ -1,0 +1,18 @@
+/* Existing App.css can be cleared since we use index.css for global styles, 
+   but let's add some component-specific premium touches here if needed. */
+.layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.category-card:hover .category-icon {
+  background-color: var(--primary-teal);
+  color: var(--white);
+  transform: rotate(5deg);
+  transition: all 0.3s ease;
+}
+
+.logo span {
+  font-weight: 900;
+}

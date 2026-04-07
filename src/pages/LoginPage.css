@@ -1,0 +1,321 @@
+/* Login Overlay */
+.login-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9999;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: inherit;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+/* Modal */
+.login-modal {
+  background: #ffffff;
+  border-radius: 4px;
+  /* Less rounded corners to match ikman */
+  display: flex;
+  width: 100%;
+  max-width: 840px;
+  /* slightly smaller max-width */
+  min-height: 480px;
+  /* slightly shorter */
+  overflow: hidden;
+  box-shadow: 0 5px 30px rgba(0, 0, 0, 0.15);
+  /* More subtle shadow */
+  position: relative;
+}
+
+/* Left Panel */
+.login-left {
+  flex: 1 1 50%;
+  max-width: 50%;
+  box-sizing: border-box;
+  padding: 3.5rem 2rem;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  border-right: 1px solid #e5e5e5;
+  /* The divider is just a border now */
+}
+
+.login-welcome {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #000;
+  margin-bottom: 0.5rem;
+  letter-spacing: 0;
+}
+
+.login-sub {
+  font-size: 0.95rem;
+  color: #707676;
+  margin-bottom: 3rem;
+  /* Add more space before the list */
+  font-weight: 400;
+}
+
+.login-features {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+  /* Substantial space between rows */
+}
+
+.login-features li {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  /* Large enough space between icon and text */
+  font-size: 0.82rem;
+  color: #707676;
+  line-height: 1.5;
+  /* Looser line-height for readability */
+  font-weight: 400;
+  white-space: nowrap;
+}
+
+.feature-icon {
+  width: 34px;
+  height: 34px;
+  min-width: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Add custom icon colors resembling ikman */
+.feature-icon-tag {
+  color: #cc8a26;
+}
+
+/* brownish-gold */
+.feature-icon-star {
+  color: #f2ba36;
+}
+
+/* yellow */
+.feature-icon-layers {
+  color: #2e6d78;
+}
+
+/* deep teal */
+
+/* Right Panel */
+.login-right {
+  flex: 1 1 50%;
+  max-width: 50%;
+  box-sizing: border-box;
+  /* Perfect 50/50 split */
+  padding: 3.5rem 2rem;
+  /* Reduced horizontal padding for width */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  position: relative;
+}
+
+.login-close {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  color: #777;
+  display: flex;
+  align-items: center;
+  transition: color 0.2s;
+}
+
+.login-close:hover {
+  color: #333;
+}
+
+.login-right-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #111;
+  margin-bottom: 1.2rem;
+}
+
+/* Mobile row */
+.login-mobile-row {
+  display: flex;
+  height: 48px;
+  /* Taller input row matching design */
+  border: 1px solid #d5d5d5;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 1rem;
+}
+
+.login-country-code {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  /* Slight extra gap */
+  padding: 0 1rem;
+  background: #fff;
+  border-right: 1px solid #d5d5d5;
+  font-size: 1rem;
+  /* Bolder size */
+  color: #333;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.dropdown-caret {
+  color: #888;
+  display: flex;
+  align-items: center;
+}
+
+.login-mobile-input {
+  flex: 1;
+  border: none;
+  padding: 0 1rem;
+  font-size: 1rem;
+  /* Normal form size */
+  outline: none;
+  background: #fff;
+  font-family: inherit;
+  color: #333;
+}
+
+.login-mobile-input::placeholder {
+  color: #b5b5b5;
+}
+
+/* Buttons */
+.login-btn {
+  width: 100%;
+  height: 48px;
+  /* Taller matching inputs */
+  border-radius: 4px;
+  border: none;
+  font-size: 1rem;
+  /* Proper 16px font as per requested design */
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.2s;
+  margin-bottom: 0.85rem;
+  font-family: inherit;
+}
+
+.login-btn:hover {
+  opacity: 0.9;
+}
+
+.login-btn-continue {
+  background: #8bc3a3;
+  color: #fff;
+}
+
+.login-btn-google {
+  background: #fff;
+  color: #333;
+  border: 1px solid #ccc;
+  /* Thinner border */
+}
+
+.login-btn-facebook {
+  background: #3b5998;
+  /* darker blue for facebook */
+  color: #fff;
+}
+
+.login-btn-email {
+  background: #149777;
+  /* darker teal for email */
+  color: #fff;
+}
+
+/* OR divider */
+.login-or {
+  text-align: center;
+  position: relative;
+  margin: 1.2rem 0;
+  /* Exact spacing from the image */
+  color: #999;
+  font-size: 0.8rem;
+}
+
+.login-or::before,
+.login-or::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 44%;
+  height: 1px;
+  background: #e8e8e8;
+}
+
+.login-or::before {
+  left: 0;
+}
+
+.login-or::after {
+  right: 0;
+}
+
+/* Terms */
+.login-terms-container {
+  text-align: center;
+  margin-top: 0.5rem;
+}
+
+.login-terms-head {
+  font-size: 0.7rem;
+  color: #777;
+  margin-bottom: 0.25rem;
+}
+
+.login-terms-links {
+  font-size: 0.7rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+}
+
+.login-terms-links a {
+  color: #157ed2;
+  /* exactly matched blue */
+  text-decoration: none;
+}
+
+.login-terms-links a:hover {
+  text-decoration: underline;
+}
+
+.login-terms-dot {
+  color: #ccc;
+}
+
+/* Responsive */
+@media (max-width: 650px) {
+  .login-modal {
+    flex-direction: column;
+  }
+
+  .login-left {
+    border-right: none;
+    border-bottom: 1px solid #e5e5e5;
+    padding: 2rem 1.5rem 1rem;
+  }
+
+  .login-right {
+    padding: 1.5rem;
+  }
+}
