@@ -16,19 +16,21 @@ import {
   LogOut,
   MessageCircle,
   User,
-  Globe
+  Globe,
+  ChevronDown,
+  Filter
 } from 'lucide-react';
 
 const LogoSmile = ({ size = 28 }) => (
-  <svg 
-    xmlns="http://www.w3.org/2000/svg" 
-    width={size} 
-    height={size} 
-    viewBox="0 0 24 24" 
-    fill="none" 
-    stroke="currentColor" 
-    strokeWidth="2.5" 
-    strokeLinecap="round" 
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2.5"
+    strokeLinecap="round"
     strokeLinejoin="round"
     style={{ marginRight: '6px' }}
   >
@@ -73,10 +75,10 @@ const AboutSection = () => {
       <div className="about-content">
         <p>Sri Lanka's household name for buying and selling anything to everything online. Do you want to buy a property? Check idamata! Do you want to sell a bike? Check idamata.</p>
         <p>idamata has the widest selection of items across Sri Lanka and over 50 different categories. Whether you're looking for a car, mobile phone, house, computer or pet, you will find the best deal on idamata. Our search and filters make it easy to find precisely what you're looking for!</p>
-        
+
         {expanded && (
           <>
-            <h4 className="about-subtitle" style={{fontWeight: '700', marginTop: '1rem', marginBottom: '0.5rem', color: '#707676'}}>Buy, Sell New and Used Items Or Land Jobs Through idamata</h4>
+            <h4 className="about-subtitle" style={{ fontWeight: '700', marginTop: '1rem', marginBottom: '0.5rem', color: '#707676' }}>Buy, Sell New and Used Items Or Land Jobs Through idamata</h4>
             <p>Every month hundreds of new users use idamata. SME's and small businesses signup for memberships. You can search & filter products & services from the comfort of your own home.</p>
             <p>As one of the free advertising sites in Sri Lanka it has helped many people to find their favourite phones, pets, cars, and properties. Or even the dream job through classified ads in no time.</p>
           </>
@@ -92,7 +94,14 @@ const AboutSection = () => {
 function App() {
   const [loginContext, setLoginContext] = useState(null);
 
-  const HomePage = () => (
+  const HomePage = () => {
+    const [selectedCategoryId, setSelectedCategoryId] = useState("");
+
+    const displayedCategories = selectedCategoryId
+      ? categories.filter(cat => cat.id.toString() === selectedCategoryId)
+      : categories;
+
+    return (
     <div className="layout">
       {/* Header */}
       <header className="header">
@@ -111,11 +120,11 @@ function App() {
 
           <div className="nav-right">
             <button onClick={() => setLoginContext('chat')} className="nav-action-btn">
-              <MessageCircle size={18} strokeWidth={2.5} /> 
+              <MessageCircle size={18} strokeWidth={2.5} />
               <span>Chat</span>
             </button>
             <button onClick={() => setLoginContext('login')} className="nav-action-btn">
-              <User size={18} strokeWidth={2.5} /> 
+              <User size={18} strokeWidth={2.5} />
               <span>Login</span>
             </button>
             <a href="/post-ad" className="post-ad-btn">POST YOUR PROPERTY</a>
@@ -132,14 +141,19 @@ function App() {
           </div>
 
           <div className="search-container">
-            <input
-              type="text"
-              placeholder="What are you looking for?"
-              className="search-input"
-            />
-            <button className="search-btn">
-              <Search size={22} strokeWidth={3} />
-            </button>
+            <select 
+              className="search-input category-select"
+              value={selectedCategoryId}
+              onChange={(e) => setSelectedCategoryId(e.target.value)}
+            >
+              <option value="">All Property Types</option>
+              {categories.map(cat => (
+                <option key={cat.id} value={cat.id}>{cat.name}</option>
+              ))}
+            </select>
+            <div className="select-arrow-btn">
+              <ChevronDown size={20} strokeWidth={2.5} color="#000" />
+            </div>
           </div>
         </div>
       </section>
@@ -148,7 +162,7 @@ function App() {
       <main className="container categories-section">
         <h2 className="section-title">Browse Properties by Category</h2>
         <div className="categories-grid">
-          {categories.map(cat => (
+          {displayedCategories.map(cat => (
             <a key={cat.id} href={`/category/${cat.id}`} className="category-card">
               <div className="category-icon">
                 {cat.icon}
@@ -230,13 +244,13 @@ function App() {
               <h4>Download our app</h4>
               <div className="app-links">
                 <a href="#"><img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Google Play" height="35" /></a>
-                <a href="#" style={{display: 'block', marginTop: '10px'}}><img src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Download_on_the_App_Store_Badge.svg" alt="App Store" height="35" /></a>
+                <a href="#" style={{ display: 'block', marginTop: '10px' }}><img src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Download_on_the_App_Store_Badge.svg" alt="App Store" height="35" /></a>
               </div>
             </div>
           </div>
           <div className="footer-bottom">
             <p>&copy; 2026. All rights reserved. idamata Technologies</p>
-            <div style={{display: 'flex', alignItems: 'center', fontWeight: '800', fontSize: '1.2rem', letterSpacing: '-0.2px'}}>
+            <div style={{ display: 'flex', alignItems: 'center', fontWeight: '800', fontSize: '1.2rem', letterSpacing: '-0.2px' }}>
               <LogoSmile size={24} />
               <span className="logo-text">idamata</span>
             </div>
@@ -244,7 +258,8 @@ function App() {
         </div>
       </footer>
     </div>
-  );
+    );
+  };
 
   return (
     <BrowserRouter>
