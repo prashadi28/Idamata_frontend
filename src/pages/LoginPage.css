@@ -82,7 +82,6 @@
   line-height: 1.5;
   /* Looser line-height for readability */
   font-weight: 400;
-  white-space: nowrap;
 }
 
 .feature-icon {
@@ -304,18 +303,34 @@
 }
 
 /* Responsive */
-@media (max-width: 650px) {
+@media (max-width: 768px) {
   .login-modal {
     flex-direction: column;
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+
+  .login-left, .login-right {
+    flex: none;
+    max-width: 100%;
+    width: 100%;
   }
 
   .login-left {
     border-right: none;
     border-bottom: 1px solid #e5e5e5;
-    padding: 2rem 1.5rem 1rem;
+    padding: 1.5rem;
   }
 
   .login-right {
     padding: 1.5rem;
+  }
+
+  .login-sub {
+    margin-bottom: 1.5rem;
+  }
+
+  .login-features {
+    gap: 1rem;
   }
 }
