@@ -10,6 +10,7 @@ import {
   ArrowLeft,
   X
 } from 'lucide-react';
+import faqBanner from '../assets/faq.png';
 import './FAQPage.css';
 
 const LogoSmile = ({ size = 28 }) => (
@@ -153,11 +154,11 @@ const FAQPage = () => {
 
   const filteredData = useMemo(() => {
     if (!searchTerm) return FAQ_DATA;
-    
+
     return FAQ_DATA.map(cat => ({
       ...cat,
-      articles: cat.articles.filter(art => 
-        art.question.toLowerCase().includes(searchTerm.toLowerCase()) || 
+      articles: cat.articles.filter(art =>
+        art.question.toLowerCase().includes(searchTerm.toLowerCase()) ||
         art.answer.toLowerCase().includes(searchTerm.toLowerCase())
       )
     })).filter(cat => cat.articles.length > 0);
@@ -194,7 +195,7 @@ const FAQPage = () => {
 
   return (
     <div className="faq-page">
-      <header className="faq-header">
+      <header className="faq-header" style={{ backgroundImage: `linear-gradient(rgba(0, 152, 119, 0.85), rgba(0, 124, 97, 0.95)), url(${faqBanner})` }}>
         <div className="container">
           <div className="faq-nav">
             <Link to="/" className="faq-logo-link">
@@ -204,15 +205,15 @@ const FAQPage = () => {
             <div className="faq-nav-divider"></div>
             <span className="faq-nav-label">Helpcenter</span>
           </div>
-          
+
           <h1 className="faq-title">Frequently asked questions</h1>
-          
+
           <div className="faq-search-wrapper">
             <div className="faq-search-container">
               <Search className="faq-search-icon" size={20} />
-              <input 
-                type="text" 
-                placeholder="What do you need help with?" 
+              <input
+                type="text"
+                placeholder="What do you need help with?"
                 className="faq-search-input"
                 value={searchTerm}
                 onChange={(e) => {
@@ -221,11 +222,11 @@ const FAQPage = () => {
                 }}
               />
               {searchTerm && (
-                <X 
-                  size={18} 
-                  className="faq-search-icon" 
-                  style={{ cursor: 'pointer' }} 
-                  onClick={() => setSearchTerm('')} 
+                <X
+                  size={18}
+                  className="faq-search-icon"
+                  style={{ cursor: 'pointer' }}
+                  onClick={() => setSearchTerm('')}
                 />
               )}
             </div>
@@ -237,8 +238,8 @@ const FAQPage = () => {
         {!searchTerm && (
           <div className="faq-category-grid">
             {FAQ_DATA.map(cat => (
-              <div 
-                key={cat.id} 
+              <div
+                key={cat.id}
                 className={`faq-category-card ${selectedCategory === cat.id ? 'active' : ''}`}
                 onClick={() => handleCategoryClick(cat.id)}
               >
@@ -259,16 +260,16 @@ const FAQPage = () => {
           <div className="faq-articles-section">
             <div className="faq-section-heading">
               <span>
-                {searchTerm 
-                  ? `Search results for "${searchTerm}"` 
+                {searchTerm
+                  ? `Search results for "${searchTerm}"`
                   : FAQ_DATA.find(c => c.id === selectedCategory)?.title}
               </span>
-              <button 
+              <button
                 onClick={resetFilters}
-                style={{ 
-                  background: 'none', 
-                  border: 'none', 
-                  color: '#009877', 
+                style={{
+                  background: 'none',
+                  border: 'none',
+                  color: '#009877',
                   cursor: 'pointer',
                   display: 'flex',
                   alignItems: 'center',
@@ -283,8 +284,8 @@ const FAQPage = () => {
 
             {displayedArticles.length > 0 ? (
               displayedArticles.map((art, index) => (
-                <div 
-                  key={art.id} 
+                <div
+                  key={art.id}
                   className={`faq-article-card ${expandedArticle === art.id ? 'expanded' : ''}`}
                 >
                   <div className="faq-article-header" onClick={() => toggleArticle(art.id)}>

@@ -22,7 +22,9 @@
 
 /* FAQ Header */
 .faq-header {
-  background: linear-gradient(135deg, #009877 0%, #007c61 100%);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   color: white;
   padding: 40px 0 160px;
   text-align: center;
