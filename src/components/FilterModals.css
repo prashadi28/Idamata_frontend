@@ -1,0 +1,176 @@
+.filter-sel-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1100;
+  backdrop-filter: blur(2px);
+}
+
+.filter-sel-modal {
+  background: #fff;
+  width: 100%;
+  max-width: 500px;
+  border-radius: 8px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.filter-sel-header {
+  padding: 16px 20px;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.filter-sel-header h2 {
+  margin: 0;
+  font-size: 18px;
+  color: #333;
+}
+
+.filter-sel-close {
+  background: none;
+  border: none;
+  color: #666;
+  cursor: pointer;
+  padding: 4px;
+}
+
+.filter-sel-body {
+  padding: 24px 20px;
+}
+
+/* Check Grid */
+.filter-check-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 25px 15px;
+}
+
+.check-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.check-item input {
+  display: none;
+}
+
+.check-box {
+  width: 20px;
+  height: 20px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  position: relative;
+  transition: all 0.2s;
+}
+
+.check-item input:checked + .check-box {
+  background: #009f7f;
+  border-color: #009f7f;
+}
+
+.check-item input:checked + .check-box::after {
+  content: "";
+  position: absolute;
+  left: 6px;
+  top: 2px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 2.5px 2.5px 0;
+  transform: rotate(45deg);
+}
+
+.check-label {
+  font-size: 14px;
+  color: #333;
+}
+
+/* Radio List */
+.filter-radio-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.radio-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+}
+
+.radio-item input {
+  display: none;
+}
+
+.radio-circle {
+  width: 20px;
+  height: 20px;
+  border: 1px solid #ddd;
+  border-radius: 50%;
+  position: relative;
+  transition: all 0.2s;
+}
+
+.radio-item input:checked + .radio-circle {
+  border-color: #009f7f;
+}
+
+.radio-item input:checked + .radio-circle::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 10px;
+  height: 10px;
+  background: #009f7f;
+  border-radius: 50%;
+}
+
+.radio-label {
+  font-size: 15px;
+  color: #333;
+}
+
+.filter-sel-footer {
+  padding: 16px 20px;
+  border-top: 1px solid #eee;
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  background: #fdfdfd;
+}
+
+.filter-reset-btn {
+  background: #fff;
+  border: 1px solid #009f7f;
+  color: #009f7f;
+  padding: 8px 24px;
+  border-radius: 4px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.filter-apply-btn {
+  background: #009f7f;
+  border: none;
+  color: white;
+  padding: 8px 24px;
+  border-radius: 4px;
+  font-weight: 600;
+  cursor: pointer;
+}

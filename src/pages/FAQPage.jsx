@@ -8,9 +8,12 @@ import {
   ShoppingBag,
   Tag,
   ArrowLeft,
-  X
+
+  X,
+  MessageCircle,
+  User
 } from 'lucide-react';
-import faqBanner from '../assets/faq.png';
+import faqBanner from '../assets/FAQ with vibrant characters and icons.png';
 import './FAQPage.css';
 
 const LogoSmile = ({ size = 28 }) => (
@@ -143,7 +146,7 @@ const FAQ_DATA = [
   }
 ];
 
-const FAQPage = () => {
+const FAQPage = ({ onChatClick, onLoginClick }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [expandedArticle, setExpandedArticle] = useState(null);
@@ -195,20 +198,45 @@ const FAQPage = () => {
 
   return (
     <div className="faq-page">
-      <header className="faq-header" style={{ backgroundImage: `linear-gradient(rgba(0, 152, 119, 0.85), rgba(0, 124, 97, 0.95)), url(${faqBanner})` }}>
-        <div className="container">
-          <div className="faq-nav">
-            <Link to="/" className="faq-logo-link">
+      {/* Header - Fixed to match site style */}
+      <header className="header" style={{ background: '#009f7f' }}>
+        <div className="container nav">
+          <div className="nav-left">
+            <Link to="/" className="logo" style={{ color: '#fff' }}>
               <LogoSmile size={28} />
+              <span className="logo-text">idamata</span>
+            </Link>
+            <Link to="/all-ads" className="nav-all-ads" style={{ color: '#fff' }}>All ads</Link>
+          </div>
+
+          <div className="nav-right">
+            <button onClick={onChatClick} className="nav-action-btn" style={{ color: '#fff' }}>
+              <MessageCircle size={18} strokeWidth={2.5} />
+              <span>Chat</span>
+            </button>
+            <button onClick={onLoginClick} className="nav-action-btn" style={{ color: '#fff' }}>
+              <User size={18} strokeWidth={2.5} />
+              <span>Login</span>
+            </button>
+            <Link to="/post-ad" className="post-ad-btn" style={{ backgroundColor: '#ffcc00', color: '#000' }}>POST YOUR PROPERTY</Link>
+          </div>
+        </div>
+      </header>
+
+      <header className="faq-header" style={{ backgroundImage: `linear-gradient(rgba(0, 152, 119, 0.35), rgba(0, 124, 97, 0.45)), url(${faqBanner})` }}>
+        <div className="container">
+          <div className="faq-nav" style={{ marginBottom: '20px' }}>
+            <Link to="/" className="faq-logo-link" style={{ fontSize: '22px' }}>
+              <LogoSmile size={26} />
               <span>idamata</span>
             </Link>
             <div className="faq-nav-divider"></div>
             <span className="faq-nav-label">Helpcenter</span>
           </div>
 
-          <h1 className="faq-title">Frequently asked questions</h1>
+          <h1 className="faq-title" style={{ fontSize: '28px', marginBottom: '25px' }}>Frequently asked questions</h1>
 
-          <div className="faq-search-wrapper">
+          <div className="faq-search-wrapper" style={{ maxWidth: '700px' }}>
             <div className="faq-search-container">
               <Search className="faq-search-icon" size={20} />
               <input

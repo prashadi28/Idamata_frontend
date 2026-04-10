@@ -46,7 +46,7 @@ const Footer = () => {
           <div className="footer-col">
             <h4>About idamata</h4>
             <ul>
-              <li><Link to="#">About Us</Link></li>
+              <li><Link to="/about-us">About Us</Link></li>
               <li><Link to="#">Careers</Link></li>
               <li><Link to="#">Terms and Conditions</Link></li>
               <li><Link to="#">Privacy policy</Link></li>

@@ -4,6 +4,12 @@ import {
   MessageCircle, User, Star
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import RefineModal from '../components/RefineModal';
+import LocationSelectionModal from '../components/LocationSelectionModal';
+import CategorySelectionModal from '../components/CategorySelectionModal';
+import PriceSelectionModal from '../components/PriceSelectionModal';
+import HouseSizeSelectionModal from '../components/HouseSizeSelectionModal';
+import { BedroomsSelectionModal, BathroomsSelectionModal, PosterTypeSelectionModal } from '../components/FilterSelectionModals';
 import './PropertiesListingPage.css';
 
 const LogoSmile = ({ size = 28 }) => (
@@ -78,6 +84,22 @@ const mockProperties = [
 ];
 
 export default function PropertiesListingPage({ onChatClick, onLoginClick }) {
+  const [isRefineModalOpen, setIsRefineModalOpen] = React.useState(false);
+  const [isLocationModalOpen, setIsLocationModalOpen] = React.useState(false);
+  const [isCategoryModalOpen, setIsCategoryModalOpen] = React.useState(false);
+  const [isPriceModalOpen, setIsPriceModalOpen] = React.useState(false);
+  const [isSizeModalOpen, setIsSizeModalOpen] = React.useState(false);
+  const [isBedroomsModalOpen, setIsBedroomsModalOpen] = React.useState(false);
+  const [isBathroomsModalOpen, setIsBathroomsModalOpen] = React.useState(false);
+  const [isPosterTypeModalOpen, setIsPosterTypeModalOpen] = React.useState(false);
+  
+  const [selectedSubcategory, setSelectedSubcategory] = React.useState('Houses For Sale');
+  const [priceRange, setPriceRange] = React.useState({ min: '', max: '' });
+  const [sizeRange, setSizeRange] = React.useState({ min: 0, max: 100000 });
+  const [selectedBeds, setSelectedBeds] = React.useState([]);
+  const [selectedBaths, setSelectedBaths] = React.useState([]);
+  const [selectedPosterType, setSelectedPosterType] = React.useState('All posters');
+
   return (
     <div className="layout listing-page">
       {/* Header - kept consistent with the main app but simplified for the mock */}
@@ -120,29 +142,53 @@ export default function PropertiesListingPage({ onChatClick, onLoginClick }) {
           </div>
 
           <div className="filter-row">
-            <button className="filter-btn active-filter-outline">
+            <button
+              className="filter-btn active-filter-outline"
+              onClick={() => setIsRefineModalOpen(true)}
+            >
               <MapPin size={14} /> Refine
             </button>
-            <button className="filter-btn">
+            <button
+              className="filter-btn"
+              onClick={() => setIsLocationModalOpen(true)}
+            >
               All of Sri Lanka <ChevronDown size={14} />
             </button>
-            <button className="filter-btn active-filter">
-              Houses For Sale <span style={{ marginLeft: 5 }}>✕</span>
+            <button 
+              className={`filter-btn ${selectedSubcategory ? 'active-filter' : ''}`}
+              onClick={() => setIsCategoryModalOpen(true)}
+            >
+              {selectedSubcategory || 'Category'} <span style={{ marginLeft: 5 }} onClick={(e) => { e.stopPropagation(); setSelectedSubcategory(''); }}>✕</span>
             </button>
-            <button className="filter-btn">
-              Price <ChevronDown size={14} />
+            <button 
+              className={`filter-btn ${priceRange.min || priceRange.max ? 'active-filter' : ''}`}
+              onClick={() => setIsPriceModalOpen(true)}
+            >
+              {priceRange.min || priceRange.max ? `Rs. ${priceRange.min || 0} - ${priceRange.max || 'Any'}` : 'Price'} <ChevronDown size={14} />
             </button>
-            <button className="filter-btn">
-              House size <ChevronDown size={14} />
+            <button 
+              className={`filter-btn ${sizeRange.min > 0 || sizeRange.max < 100000 ? 'active-filter' : ''}`}
+              onClick={() => setIsSizeModalOpen(true)}
+            >
+              {sizeRange.min > 0 || sizeRange.max < 100000 ? `${sizeRange.min} - ${sizeRange.max} sqft` : 'House size'} <ChevronDown size={14} />
             </button>
-            <button className="filter-btn">
-              Bedrooms <ChevronDown size={14} />
+            <button 
+              className={`filter-btn ${selectedBeds.length > 0 ? 'active-filter' : ''}`}
+              onClick={() => setIsBedroomsModalOpen(true)}
+            >
+              {selectedBeds.length > 0 ? `Beds: ${selectedBeds.join(', ')}` : 'Bedrooms'} <ChevronDown size={14} />
             </button>
-            <button className="filter-btn">
-              Bathrooms <ChevronDown size={14} />
+            <button 
+              className={`filter-btn ${selectedBaths.length > 0 ? 'active-filter' : ''}`}
+              onClick={() => setIsBathroomsModalOpen(true)}
+            >
+              {selectedBaths.length > 0 ? `Baths: ${selectedBaths.join(', ')}` : 'Bathrooms'} <ChevronDown size={14} />
             </button>
-            <button className="filter-btn">
-              Type of poster <ChevronDown size={14} />
+            <button 
+              className={`filter-btn ${selectedPosterType !== 'All posters' ? 'active-filter' : ''}`}
+              onClick={() => setIsPosterTypeModalOpen(true)}
+            >
+              {selectedPosterType !== 'All posters' ? selectedPosterType : 'Type of poster'} <ChevronDown size={14} />
             </button>
           </div>
         </div>
@@ -155,10 +201,10 @@ export default function PropertiesListingPage({ onChatClick, onLoginClick }) {
             <ul>
               <li className="tree-level-1"><Link to="/all-ads">All Categories</Link></li>
               <li className="tree-level-2">
-                <Home size={16} color="#ff3366"/> <Link to="/category/property">Property</Link>
+                <Home size={16} color="#ff3366" /> <Link to="/category/property">Property</Link>
               </li>
               <li className="tree-level-3">
-                <Home size={16} color="#707676" /> 
+                <Home size={16} color="#707676" />
                 <span style={{ fontWeight: 600 }}>Houses For Sale</span>
               </li>
               <li className="tree-level-4 tree-count">(19,991)</li>
@@ -179,18 +225,18 @@ export default function PropertiesListingPage({ onChatClick, onLoginClick }) {
             {mockProperties.map(property => (
               <Link to={`/ad/${property.id}`} key={property.id} className={`horizontal-card ${property.isFeatured ? 'horizontal-card-featured' : ''}`}>
                 {property.isFeatured && <div className="featured-tag">FEATURED</div>}
-                
+
                 <div className="card-image-wrapper">
                   <img src={property.img} alt={property.title} />
                   {property.imageOverlay && (
                     <div className="image-overlay-text">{property.imageOverlay}</div>
                   )}
                 </div>
-                
+
                 <div className="card-details">
                   <h3 className="card-title">{property.title}</h3>
                   <p className="card-specs">Bedrooms: {property.beds}, Bathrooms: {property.baths}</p>
-                  
+
                   {(property.isMember || property.isVerified) && (
                     <div className="card-badges">
                       {property.isMember && (
@@ -201,7 +247,7 @@ export default function PropertiesListingPage({ onChatClick, onLoginClick }) {
                       )}
                     </div>
                   )}
-                  
+
                   <p className="card-location">{property.location}</p>
                   <p className="card-price">{property.price}</p>
                 </div>
@@ -227,11 +273,11 @@ export default function PropertiesListingPage({ onChatClick, onLoginClick }) {
         {/* Right Sidebar (Ads) */}
         <aside className="ad-sidebar">
           <div className="sidebar-banner">
-             <div style={{ background: '#333', color: '#fff', padding: '15px', textAlign: 'center', height: '250px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-                <h3 style={{ margin: 0 }}>PRIME GROUP</h3>
-                <p>Super Luxury Houses</p>
-                <button style={{ background: '#fff', color: '#0074d9', border: 'none', padding: '5px 15px', fontWeight: 'bold', marginTop: '10px', cursor: 'pointer' }}>CLICK HERE</button>
-             </div>
+            <div style={{ background: '#333', color: '#fff', padding: '15px', textAlign: 'center', height: '250px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+              <h3 style={{ margin: 0 }}>PRIME GROUP</h3>
+              <p>Super Luxury Houses</p>
+              <button style={{ background: '#fff', color: '#0074d9', border: 'none', padding: '5px 15px', fontWeight: 'bold', marginTop: '10px', cursor: 'pointer' }}>CLICK HERE</button>
+            </div>
           </div>
           <div className="sidebar-banner" style={{ background: '#fdf5eb', padding: '20px', border: '1px solid #eadbc7', textAlign: 'center', height: '400px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
             <h4 style={{ color: '#bf4040', fontFamily: 'serif', margin: 0, fontSize: '24px' }}>Elizabeth</h4>
@@ -240,6 +286,52 @@ export default function PropertiesListingPage({ onChatClick, onLoginClick }) {
           </div>
         </aside>
       </div>
+      <RefineModal
+        isOpen={isRefineModalOpen}
+        onClose={() => setIsRefineModalOpen(false)}
+      />
+      <LocationSelectionModal
+        isOpen={isLocationModalOpen}
+        onClose={() => setIsLocationModalOpen(false)}
+      />
+      <CategorySelectionModal
+        isOpen={isCategoryModalOpen}
+        onClose={() => setIsCategoryModalOpen(false)}
+        onSelect={(cat) => setSelectedSubcategory(cat)}
+        selectedSubcategory={selectedSubcategory}
+      />
+      <PriceSelectionModal
+        isOpen={isPriceModalOpen}
+        onClose={() => setIsPriceModalOpen(false)}
+        onSelect={(range) => setPriceRange(range)}
+        initialMin={priceRange.min}
+        initialMax={priceRange.max}
+      />
+      <HouseSizeSelectionModal
+        isOpen={isSizeModalOpen}
+        onClose={() => setIsSizeModalOpen(false)}
+        onSelect={(range) => setSizeRange(range)}
+        initialMin={sizeRange.min}
+        initialMax={sizeRange.max}
+      />
+      <BedroomsSelectionModal
+        isOpen={isBedroomsModalOpen}
+        onClose={() => setIsBedroomsModalOpen(false)}
+        onSelect={(val) => setSelectedBeds(val)}
+        selectedValue={selectedBeds}
+      />
+      <BathroomsSelectionModal
+        isOpen={isBathroomsModalOpen}
+        onClose={() => setIsBathroomsModalOpen(false)}
+        onSelect={(val) => setSelectedBaths(val)}
+        selectedValue={selectedBaths}
+      />
+      <PosterTypeSelectionModal
+        isOpen={isPosterTypeModalOpen}
+        onClose={() => setIsPosterTypeModalOpen(false)}
+        onSelect={(val) => setSelectedPosterType(val)}
+        selectedValue={selectedPosterType}
+      />
     </div>
   );
 }

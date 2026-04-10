@@ -146,12 +146,13 @@ body {
 /* Hero Section */
 .hero {
   position: relative;
-  background-color: var(--primary-teal);
-  background-image: linear-gradient(rgba(10, 80, 60, 0.7), rgba(5, 40, 30, 0.85)), url('./assets/hero-creative.png');
+  background-color: #1a1a1a;
+  /* Neutral dark base */
+  background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.5)), url('./assets/herooo.png');
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
-  padding: 7rem 0 8rem;
+  padding: 8rem 0 10.5rem;
   text-align: center;
   color: var(--white);
 }
@@ -177,13 +178,10 @@ body {
 .search-container {
   max-width: 850px;
   margin: 0 auto;
-  background: var(--white);
-  padding: 4px 4px 4px 24px;
-  border-radius: 50px;
   display: flex;
   align-items: center;
   position: relative;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  /* Removed white background and padding to allow CustomDropdown's glassmorphism */
 }
 
 .search-input {

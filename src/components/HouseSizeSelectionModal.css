@@ -1,0 +1,142 @@
+.size-sel-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1100;
+  backdrop-filter: blur(2px);
+}
+
+.size-sel-modal {
+  background: #fff;
+  width: 100%;
+  max-width: 500px;
+  border-radius: 8px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.size-sel-header {
+  padding: 16px 20px;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.size-sel-header h2 {
+  margin: 0;
+  font-size: 18px;
+  color: #333;
+}
+
+.size-sel-close {
+  background: none;
+  border: none;
+  color: #666;
+  cursor: pointer;
+  padding: 4px;
+}
+
+.size-sel-body {
+  padding: 30px 20px;
+}
+
+.size-slider-row {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.range-slider-container {
+  padding: 0 10px;
+}
+
+.range-slider {
+  height: 4px;
+  background: #eee;
+  position: relative;
+  border-radius: 2px;
+}
+
+.slider-track-fill {
+  position: absolute;
+  height: 100%;
+  background: #009f7f;
+  border-radius: 2px;
+}
+
+.slider-thumb {
+  position: absolute;
+  top: 50%;
+  width: 18px;
+  height: 18px;
+  background: #009f7f;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  z-index: 2;
+}
+
+.size-inputs {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  justify-content: center;
+}
+
+.size-inputs input {
+  width: 100px;
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  text-align: center;
+  font-size: 14px;
+  outline: none;
+}
+
+.size-inputs input:focus {
+  border-color: #009f7f;
+}
+
+.separator {
+  color: #999;
+}
+
+.size-sel-footer {
+  padding: 16px 20px;
+  border-top: 1px solid #eee;
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  background: #fdfdfd;
+}
+
+.size-reset-btn {
+  background: #fff;
+  border: 1px solid #009f7f;
+  color: #009f7f;
+  padding: 8px 24px;
+  border-radius: 4px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.size-show-btn {
+  background: #009f7f;
+  border: none;
+  color: white;
+  padding: 8px 24px;
+  border-radius: 4px;
+  font-weight: 600;
+  cursor: pointer;
+}

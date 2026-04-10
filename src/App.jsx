@@ -5,7 +5,9 @@ import PropertiesListingPage from './pages/PropertiesListingPage';
 import SellFastPage from './pages/SellFastPage';
 import ContactPage from './pages/ContactPage';
 import FAQPage from './pages/FAQPage';
+import AboutPage from './pages/AboutPage';
 import Footer from './components/Footer';
+import CustomDropdown from './components/CustomDropdown';
 import {
   Home,
   MapPin,
@@ -278,19 +280,12 @@ function App() {
             </div>
 
             <div className="search-container">
-              <select
-                className="search-input category-select"
-                value={selectedCategoryId}
-                onChange={(e) => setSelectedCategoryId(e.target.value)}
-              >
-                <option value="">All Property Types</option>
-                {categories.map(cat => (
-                  <option key={cat.id} value={cat.id}>{cat.name}</option>
-                ))}
-              </select>
-              <div className="select-arrow-btn">
-                <ChevronDown size={20} strokeWidth={2.5} color="#000" />
-              </div>
+              <CustomDropdown
+                options={categories}
+                selectedOption={categories.find(c => c.id.toString() === selectedCategoryId)}
+                onSelect={(option) => setSelectedCategoryId(option ? option.id.toString() : "")}
+                placeholder="All Property Types"
+              />
             </div>
           </div>
         </section>
@@ -320,7 +315,8 @@ function App() {
         <Route path="/category/:categoryId" element={<PropertiesListingPage onChatClick={() => setLoginContext('chat')} onLoginClick={() => setLoginContext('login')} />} />
         <Route path="/sell-fast" element={<SellFastPage onChatClick={() => setLoginContext('chat')} onLoginClick={() => setLoginContext('login')} />} />
         <Route path="/contact-us" element={<ContactPage onChatClick={() => setLoginContext('chat')} onLoginClick={() => setLoginContext('login')} />} />
-        <Route path="/faqs" element={<FAQPage />} />
+        <Route path="/faqs" element={<FAQPage onChatClick={() => setLoginContext('chat')} onLoginClick={() => setLoginContext('login')} />} />
+        <Route path="/about-us" element={<AboutPage onChatClick={() => setLoginContext('chat')} onLoginClick={() => setLoginContext('login')} />} />
       </Routes>
       <Footer />
     </BrowserRouter>

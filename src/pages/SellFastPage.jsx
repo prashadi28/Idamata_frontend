@@ -62,7 +62,7 @@ const SellFastPage = ({ onChatClick, onLoginClick }) => {
               <User size={18} strokeWidth={2.5} />
               <span>Login</span>
             </button>
-            <Link to="/post-ad" className="post-ad-btn" style={{ backgroundColor: '#ffcc00', color: '#000' }}></Link>
+            <Link to="/post-ad" className="post-ad-btn" style={{ backgroundColor: '#ffcc00', color: '#000' }}>POST YOUR PROPERTY</Link>
           </div>
         </div>
       </header>
