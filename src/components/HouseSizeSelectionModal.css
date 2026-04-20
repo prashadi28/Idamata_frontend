@@ -140,3 +140,33 @@
   font-weight: 600;
   cursor: pointer;
 }
+
+@media (max-width: 550px) {
+  .size-sel-modal {
+    width: 95%;
+    max-height: 90vh;
+    border-radius: 12px;
+  }
+
+  .size-inputs {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .size-inputs input {
+    width: 100%;
+  }
+
+  .separator {
+    display: none;
+  }
+
+  .size-sel-footer {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .size-reset-btn, .size-show-btn {
+    width: 100%;
+  }
+}

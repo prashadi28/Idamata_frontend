@@ -11,14 +11,9 @@ const subcategoryData = {
     { name: 'Houses For Sale', emoji: '🏡', posts: 8240 },
     { name: 'Land For Sale', emoji: '🌿', posts: 3102 },
     { name: 'Apartments For Sale', emoji: '🏢', posts: 2890 },
-    { name: 'Commercial For Sale', emoji: '🏬', posts: 1054 },
-    { name: 'House Rentals', emoji: '🏠', posts: 1980 },
+    { name: 'Houses For Rent', emoji: '🏠', posts: 1980 },
     { name: 'Apartment Rentals', emoji: '🏙️', posts: 1440 },
-    { name: 'Commercial Rentals', emoji: '🏪', posts: 670 },
-    { name: 'Room & Annex Rentals', emoji: '🏘️', posts: 490 },
-    { name: 'Holiday Rentals', emoji: '🏖️', posts: 310 },
-    { name: 'Land Rentals', emoji: '🌾', posts: 195 },
-    { name: 'New Projects', emoji: '🏛️', posts: 114 },
+    { name: 'Commercial Property', emoji: '🏬', posts: 1054 },
   ],
   'Vehicles': [],
   'Electronics': [],
@@ -37,6 +32,8 @@ const CategorySelectionModal = ({ isOpen, onClose, onSelect, selectedSubcategory
   return (
     <div className="cat-sel-overlay">
       <div className="cat-sel-modal">
+
+        
         {/* Header */}
         <div className="cat-sel-header">
           <div className="header-text">

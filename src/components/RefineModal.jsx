@@ -1,3 +1,4 @@
+
 import React, { useState, useRef, useEffect } from 'react';
 import { X, ChevronDown, ChevronUp, ChevronRight, MapPin, Home, Check } from 'lucide-react';
 import CategorySelectionModal from './CategorySelectionModal';
@@ -14,7 +15,22 @@ const Section = ({ title, children, isOpen, onToggle, noBorder }) => (
   </div>
 );
 
-const RefineModal = ({ isOpen, onClose }) => {
+const RefineModal = ({
+  isOpen,
+  onClose,
+  selectedSubcategory: externalSubcategory,
+  onSubcategoryChange,
+  selectedSortBy: externalSortBy,
+  onSortByChange,
+  selectedPosterType: externalPosterType,
+  onPosterTypeChange,
+  selectedAdType: externalAdType,
+  onAdTypeChange,
+  selectedFurnished: externalFurnished,
+  onFurnishedChange,
+  selectedPropertyType: externalPropertyType,
+  onPropertyTypeChange
+}) => {
   const [sections, setSections] = useState({
     location: true,
     category: true,
@@ -23,12 +39,32 @@ const RefineModal = ({ isOpen, onClose }) => {
     bedrooms: true,
     bathrooms: false,
     propertyType: false,
-    promoted: false,
+    sortBy: false,
+    posterType: false,
+    adType: false,
+    furnished: false,
   });
 
   const [isCategoryModalOpen, setIsCategoryModalOpen] = useState(false);
   const [isLocationModalOpen, setIsLocationModalOpen] = useState(false);
-  const [selectedSubcategory, setSelectedSubcategory] = useState('Houses For Sale');
+  const [selectedSubcategory, setSelectedSubcategory] = useState(externalSubcategory || 'Houses For Sale');
+
+  const [selectedSortBy, setSelectedSortBy] = useState(externalSortBy || 'Date: Newest first');
+  const [selectedPosterType, setSelectedPosterType] = useState(externalPosterType || 'All posters');
+  const [selectedAdType, setSelectedAdType] = useState(externalAdType || 'For sale');
+  const [selectedFurnished, setSelectedFurnished] = useState(externalFurnished || []);
+  const [selectedPropertyType, setSelectedPropertyType] = useState(externalPropertyType || 'All');
+
+  // Sync with external props
+  useEffect(() => {
+    if (externalSubcategory) setSelectedSubcategory(externalSubcategory);
+    if (externalSortBy) setSelectedSortBy(externalSortBy);
+    if (externalPosterType) setSelectedPosterType(externalPosterType);
+    if (externalAdType) setSelectedAdType(externalAdType);
+    if (externalFurnished) setSelectedFurnished(externalFurnished);
+    if (externalPropertyType) setSelectedPropertyType(externalPropertyType);
+  }, [externalSubcategory, externalSortBy, externalPosterType, externalAdType, externalFurnished, externalPropertyType]);
+
   const [selectedBeds, setSelectedBeds] = useState([]);
   const [selectedBaths, setSelectedBaths] = useState(null);
   const [minPrice, setMinPrice] = useState('');
@@ -103,6 +139,11 @@ const RefineModal = ({ isOpen, onClose }) => {
     setSelectedPriceRange(null);
     setMinSize(0);
     setMaxSize(100000);
+    setSelectedSortBy('Date: Newest first');
+    setSelectedPosterType('All posters');
+    setSelectedAdType('For sale');
+    setSelectedFurnished([]);
+    setSelectedPropertyType('All');
   };
 
   if (!isOpen) return null;
@@ -210,9 +251,9 @@ const RefineModal = ({ isOpen, onClose }) => {
             </div>
           </Section>
 
-          {/* House Size Section */}
+          {/* Size Section (Dynamic Title) */}
           <Section
-            title="House Size"
+            title={selectedSubcategory === 'Land For Sale' ? 'Land Size' : (selectedSubcategory === 'Apartments For Sale' ? 'Unit Size' : (selectedSubcategory === 'Commercial Property' ? 'Size' : 'House Size'))}
             isOpen={sections.houseSize}
             onToggle={() => toggleSection('houseSize')}
           >
@@ -246,7 +287,7 @@ const RefineModal = ({ isOpen, onClose }) => {
                     value={minSize.toLocaleString()}
                     onChange={(e) => setMinSize(Math.min(Number(e.target.value.replace(/,/g, '')) || 0, maxSize))}
                   />
-                  <span className="size-unit">sq ft</span>
+                  <span className="size-unit">{selectedSubcategory === 'Land For Sale' ? 'perches' : 'sq ft'}</span>
                 </div>
                 <span className="separator">–</span>
                 <div className="size-input-box">
@@ -255,78 +296,190 @@ const RefineModal = ({ isOpen, onClose }) => {
                     value={maxSize.toLocaleString()}
                     onChange={(e) => setMaxSize(Math.max(Number(e.target.value.replace(/,/g, '')) || 0, minSize))}
                   />
-                  <span className="size-unit">sq ft</span>
+                  <span className="size-unit">{selectedSubcategory === 'Land For Sale' ? 'perches' : 'sq ft'}</span>
                 </div>
               </div>
             </div>
           </Section>
 
-          {/* Bedrooms Section */}
-          <Section
-            title="Bedrooms"
-            isOpen={sections.bedrooms}
-            onToggle={() => toggleSection('bedrooms')}
-          >
-            <div className="bedroom-grid">
-              {[1, 2, 3, 4, 5, 6, 7, 8, 8, 9, '10+'].map((num, idx) => (
-                <button
-                  key={idx}
-                  className={`bed-btn ${selectedBeds.includes(num) ? 'active' : ''}`}
-                  onClick={() => toggleBed(num)}
-                >
-                  {selectedBeds.includes(num) && <Check size={12} className="bed-check" />}
-                  <span>{num}</span>
-                </button>
-              ))}
-            </div>
-          </Section>
+          {/* Bedrooms Section (Hidden for Land and Commercial) */}
+          {selectedSubcategory !== 'Land For Sale' && selectedSubcategory !== 'Commercial Property' && (
+            <Section
+              title="Bedrooms"
+              isOpen={sections.bedrooms}
+              onToggle={() => toggleSection('bedrooms')}
+            >
+              <div className="bedroom-grid">
+                {[1, 2, 3, 4, 5, 6, 7, 8, 8, 9, '10+'].map((num, idx) => (
+                  <button
+                    key={idx}
+                    className={`bed-btn ${selectedBeds.includes(num) ? 'active' : ''}`}
+                    onClick={() => toggleBed(num)}
+                  >
+                    {selectedBeds.includes(num) && <Check size={12} className="bed-check" />}
+                    <span>{num}</span>
+                  </button>
+                ))}
+              </div>
+            </Section>
+          )}
 
-          {/* Bathrooms Section */}
-          <Section
-            title="Bathrooms"
-            isOpen={sections.bathrooms}
-            onToggle={() => toggleSection('bathrooms')}
-          >
-            <div className="bedroom-grid">
-              {[1, 2, 3, 4, 5, 6, 7, 8, 9, '10+'].map((num, idx) => (
-                <button
-                  key={idx}
-                  className={`bed-btn ${selectedBaths === num ? 'active' : ''}`}
-                  onClick={() => setSelectedBaths(num === selectedBaths ? null : num)}
-                >
-                  {selectedBaths === num && <Check size={12} className="bed-check" />}
-                  <span>{num}</span>
-                </button>
-              ))}
-            </div>
-          </Section>
+          {/* Bathrooms Section (Hidden for Land and Commercial) */}
+          {selectedSubcategory !== 'Land For Sale' && selectedSubcategory !== 'Commercial Property' && (
+            <Section
+              title="Bathrooms"
+              isOpen={sections.bathrooms}
+              onToggle={() => toggleSection('bathrooms')}
+            >
+              <div className="bedroom-grid">
+                {[1, 2, 3, 4, 5, 6, 7, 8, 9, '10+'].map((num, idx) => (
+                  <button
+                    key={idx}
+                    className={`bed-btn ${selectedBaths === num ? 'active' : ''}`}
+                    onClick={() => setSelectedBaths(num === selectedBaths ? null : num)}
+                  >
+                    {selectedBaths === num && <Check size={12} className="bed-check" />}
+                    <span>{num}</span>
+                  </button>
+                ))}
+              </div>
+            </Section>
+          )}
 
-          {/* Property Type Section */}
+          {/* Sort By Section */}
           <Section
-            title="Property Type"
-            isOpen={sections.propertyType}
-            onToggle={() => toggleSection('propertyType')}
+            title="Sort by"
+            isOpen={sections.sortBy}
+            onToggle={() => toggleSection('sortBy')}
           >
             <div className="refine-radio-list">
-              <label className="radio-item"><input type="radio" name="ptype" defaultChecked /> <span className="radio-circle"></span> All types</label>
-              <label className="radio-item"><input type="radio" name="ptype" /> <span className="radio-circle"></span> Residential</label>
-              <label className="radio-item"><input type="radio" name="ptype" /> <span className="radio-circle"></span> Commercial</label>
-              <label className="radio-item"><input type="radio" name="ptype" /> <span className="radio-circle"></span> Land</label>
+              {['Date: Newest first', 'Date: Oldest first', 'Price: Highest to Lowest', 'Price: Lowest to Highest'].map(opt => (
+                <label key={opt} className="radio-item">
+                  <input
+                    type="radio"
+                    name="refine-sort"
+                    checked={selectedSortBy === opt}
+                    onChange={() => {
+                      setSelectedSortBy(opt);
+                      if (onSortByChange) onSortByChange(opt);
+                    }}
+                  />
+                  <span className="radio-circle"></span>
+                  {opt}
+                </label>
+              ))}
             </div>
           </Section>
 
-          {/* Promoted Listings Section */}
+          {/* Ad Type Section */}
           <Section
-            title="Promoted Listings"
-            isOpen={sections.promoted}
-            onToggle={() => toggleSection('promoted')}
+            title="Ad type"
+            isOpen={sections.adType}
+            onToggle={() => toggleSection('adType')}
           >
-            <label className="check-item single">
-              <input type="checkbox" />
-              <span className="check-box"></span>
-              <span className="urgent-badge">URGENT</span>
-            </label>
+            <div className="refine-radio-list">
+              {['For sale', 'Wanted'].map(opt => (
+                <label key={opt} className="radio-item">
+                  <input
+                    type="radio"
+                    name="refine-adtype"
+                    checked={selectedAdType === opt}
+                    onChange={() => {
+                      setSelectedAdType(opt);
+                      if (onAdTypeChange) onAdTypeChange(opt);
+                    }}
+                  />
+                  <span className="radio-circle"></span>
+                  {opt}
+                </label>
+              ))}
+            </div>
           </Section>
+
+          {/* Furnished Status Section (Only for Apartments) */}
+          {selectedSubcategory === 'Apartments For Sale' && (
+            <Section
+              title="Furnished status"
+              isOpen={sections.furnished}
+              onToggle={() => toggleSection('furnished')}
+            >
+              <div className="refine-check-list">
+                {['Unfurnished', 'Fully furnished', 'Semi furnished'].map(opt => (
+                  <label key={opt} className="check-item">
+                    <input
+                      type="checkbox"
+                      checked={selectedFurnished.includes(opt)}
+                      onChange={() => {
+                        const newValue = selectedFurnished.includes(opt)
+                          ? selectedFurnished.filter(v => v !== opt)
+                          : [...selectedFurnished, opt];
+                        setSelectedFurnished(newValue);
+                        if (onFurnishedChange) onFurnishedChange(newValue);
+                      }}
+                    />
+                    <span className="check-box"></span>
+                    {opt}
+                  </label>
+                ))}
+              </div>
+            </Section>
+          )}
+
+          {/* Type of Poster Section */}
+          <Section
+            title="Type of poster"
+            isOpen={sections.posterType}
+            onToggle={() => toggleSection('posterType')}
+          >
+            <div className="refine-radio-list">
+              {['All posters', 'Members', 'Authorized Agent', 'Non-members'].map(opt => (
+                <label key={opt} className="radio-item">
+                  <input
+                    type="radio"
+                    name="refine-poster"
+                    checked={selectedPosterType === opt}
+                    onChange={() => {
+                      setSelectedPosterType(opt);
+                      if (onPosterTypeChange) onPosterTypeChange(opt);
+                    }}
+                  />
+                  <span className="radio-circle"></span>
+                  {opt}
+                </label>
+              ))}
+            </div>
+          </Section>
+
+          {/* Property Type Section (Hidden for Land and Apartments) */}
+          {selectedSubcategory !== 'Land For Sale' && selectedSubcategory !== 'Apartments For Sale' && selectedSubcategory !== 'Apartment Rentals' && (
+            <Section
+              title="Property Type"
+              isOpen={sections.propertyType}
+              onToggle={() => toggleSection('propertyType')}
+            >
+              <div className="refine-radio-list">
+                {(selectedSubcategory === 'Commercial Property' 
+                  ? ['All', 'Hotel', 'Building', 'Other', 'Factory / Workshop', 'Warehouse / Storage'] 
+                  : ['All', 'Residential', 'Commercial', 'Land']
+                ).map(type => (
+                  <label key={type} className="radio-item">
+                    <input 
+                      type="radio" 
+                      name="refine-ptype" 
+                      checked={selectedPropertyType === type}
+                      onChange={() => {
+                        setSelectedPropertyType(type);
+                        if (onPropertyTypeChange) onPropertyTypeChange(type);
+                      }}
+                    /> 
+                    <span className="radio-circle"></span> 
+                    {type === 'All' ? 'All types' : type}
+                  </label>
+                ))}
+              </div>
+            </Section>
+          )}
+
 
         </div>
 
@@ -342,7 +495,10 @@ const RefineModal = ({ isOpen, onClose }) => {
       <CategorySelectionModal
         isOpen={isCategoryModalOpen}
         onClose={() => setIsCategoryModalOpen(false)}
-        onSelect={(cat) => setSelectedSubcategory(cat)}
+        onSelect={(cat) => {
+          setSelectedSubcategory(cat);
+          if (onSubcategoryChange) onSubcategoryChange(cat);
+        }}
         selectedSubcategory={selectedSubcategory}
       />
 

@@ -54,7 +54,7 @@ const AboutPage = ({ onChatClick, onLoginClick }) => {
               <User size={18} strokeWidth={2.5} />
               <span>Login</span>
             </button>
-            <Link to="/post-ad" className="post-ad-btn" style={{ backgroundColor: '#ffcc00', color: '#000' }}>POST YOUR PROPERTY</Link>
+            <button onClick={() => onLoginClick('post')} className="post-ad-btn" style={{ backgroundColor: '#ffcc00', color: '#000', border: 'none', cursor: 'pointer', fontFamily: 'inherit', fontSize: '1rem' }}>POST YOUR PROPERTY</button>
           </div>
         </div>
       </header>
@@ -113,7 +113,7 @@ const AboutPage = ({ onChatClick, onLoginClick }) => {
 
         <div className="about-contact-section">
           <h2 className="about-contact-title">Questions? Get in touch!</h2>
-          <p className="about-contact-subtitle">9am - 6pm on weekdays</p>
+          <p className="about-contact-subtitle">8am - 5pm on weekdays</p>
           <p className="about-contact-hours">8am - 5pm on weekends and mercantile holidays</p>
 
           <div className="about-contact-methods">

@@ -55,10 +55,6 @@ const categories = [
   { id: 4, name: 'Houses For Rent', icon: <Key />, count: '5,120 ads' },
   { id: 5, name: 'Apartment Rentals', icon: <Bed />, count: '3,890 ads' },
   { id: 6, name: 'Commercial Property', icon: <Building />, count: '4,150 ads' },
-  { id: 7, name: 'Holiday Rentals', icon: <Palmtree />, count: '1,230 ads' },
-  { id: 8, name: 'New Projects', icon: <Plus />, count: '650 ads' },
-  { id: 9, name: 'Short Term Rentals', icon: <Key />, count: '890 ads' },
-  { id: 10, name: 'Room Rentals', icon: <Bed />, count: '2,450 ads' }
 ];
 
 
@@ -68,7 +64,7 @@ const QuickLinks = () => (
     <div className="quick-links-grid">
       <div className="quick-link-card">
         <h4>67,019 ads in Property</h4>
-        <p><a href="#">Land</a> | <a href="#">Houses For Sale</a> | <a href="#">House Rentals</a> | <a href="#">Apartments For Sale</a> | <a href="#">Apartment Rentals</a></p>
+        <p><a href="#">Houses For Sale</a> | <a href="#">Land For Sale</a> | <a href="#">Houses For Rent</a> | <a href="#">Apartments For Sale</a> | <a href="#">Apartment Rentals</a> | <a href="#">Commercial Property</a></p>
       </div>
     </div>
   </div>
@@ -266,7 +262,7 @@ function App() {
                 <User size={18} strokeWidth={2.5} />
                 <span>Login</span>
               </button>
-              <Link to="/post-ad" className="post-ad-btn">POST YOUR PROPERTY</Link>
+              <button onClick={() => setLoginContext('post')} className="post-ad-btn" style={{border: 'none', cursor: 'pointer', fontFamily: 'inherit', fontSize: '1rem'}}>POST YOUR PROPERTY</button>
             </div>
           </div>
         </header>
@@ -312,11 +308,11 @@ function App() {
       {loginContext && <LoginPage context={loginContext} onClose={() => setLoginContext(null)} />}
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/category/:categoryId" element={<PropertiesListingPage onChatClick={() => setLoginContext('chat')} onLoginClick={() => setLoginContext('login')} />} />
-        <Route path="/sell-fast" element={<SellFastPage onChatClick={() => setLoginContext('chat')} onLoginClick={() => setLoginContext('login')} />} />
-        <Route path="/contact-us" element={<ContactPage onChatClick={() => setLoginContext('chat')} onLoginClick={() => setLoginContext('login')} />} />
-        <Route path="/faqs" element={<FAQPage onChatClick={() => setLoginContext('chat')} onLoginClick={() => setLoginContext('login')} />} />
-        <Route path="/about-us" element={<AboutPage onChatClick={() => setLoginContext('chat')} onLoginClick={() => setLoginContext('login')} />} />
+        <Route path="/category/:categoryId" element={<PropertiesListingPage onChatClick={() => setLoginContext('chat')} onLoginClick={(ctx = 'login') => setLoginContext(ctx)} />} />
+        <Route path="/sell-fast" element={<SellFastPage onChatClick={() => setLoginContext('chat')} onLoginClick={(ctx = 'login') => setLoginContext(ctx)} />} />
+        <Route path="/contact-us" element={<ContactPage onChatClick={() => setLoginContext('chat')} onLoginClick={(ctx = 'login') => setLoginContext(ctx)} />} />
+        <Route path="/faqs" element={<FAQPage onChatClick={() => setLoginContext('chat')} onLoginClick={(ctx = 'login') => setLoginContext(ctx)} />} />
+        <Route path="/about-us" element={<AboutPage onChatClick={() => setLoginContext('chat')} onLoginClick={(ctx = 'login') => setLoginContext(ctx)} />} />
       </Routes>
       <Footer />
     </BrowserRouter>

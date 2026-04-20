@@ -483,3 +483,103 @@
   border-radius: 10px;
 }
 
+/* Responsive */
+@media (max-width: 768px) {
+  .loc-sel-modal {
+    height: 100vh;
+    max-height: 100vh;
+    border-radius: 0;
+  }
+
+  .loc-sel-header {
+    padding: 16px 20px 12px;
+  }
+
+  .header-info h2 {
+    font-size: 1.25rem;
+  }
+
+  .loc-sel-stepper {
+    padding: 0 20px 16px;
+    gap: 8px;
+  }
+
+  .step {
+    padding: 8px 12px;
+    gap: 8px;
+  }
+
+  .step-number {
+    width: 24px;
+    height: 24px;
+    font-size: 0.8rem;
+  }
+
+  .step-desc {
+    display: none;
+  }
+
+  .loc-sel-search-wrapper {
+    padding: 0 20px 16px;
+  }
+
+  .loc-sel-main {
+    flex-direction: column;
+    overflow-y: auto;
+  }
+
+  .districts-column {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid var(--border-color);
+    max-height: 200px;
+    flex-shrink: 0;
+  }
+
+  .areas-column {
+    flex: none;
+  }
+
+  .popular-grid {
+    flex-wrap: wrap;
+  }
+
+  .popular-pill {
+    padding: 6px 12px;
+    font-size: 0.8rem;
+  }
+
+  .loc-sel-footer {
+    padding: 12px 20px;
+    flex-direction: column;
+    gap: 12px;
+    align-items: stretch;
+  }
+
+  .footer-right {
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .show-posts-btn {
+    flex: 1;
+    justify-content: center;
+    padding: 10px 16px;
+    font-size: 0.95rem;
+  }
+
+  .ad-count {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .step-title {
+    font-size: 0.8rem;
+  }
+  
+  .search-shortcut {
+    display: none;
+  }
+}

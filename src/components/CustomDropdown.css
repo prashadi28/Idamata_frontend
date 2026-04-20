@@ -181,3 +181,49 @@
   background: rgba(0, 0, 0, 0.1);
   border-radius: 10px;
 }
+
+@media (max-width: 768px) {
+  .custom-dropdown-container {
+    max-width: 100%;
+  }
+
+  .dropdown-header {
+    height: 54px;
+    padding: 5px 6px 5px 20px;
+  }
+
+  .dropdown-selected-value {
+    font-size: 17px;
+  }
+
+  .dropdown-action-button {
+    width: 42px;
+    height: 42px;
+  }
+
+  .dropdown-list-container {
+    border-radius: 16px;
+  }
+
+  .dropdown-item {
+    padding: 12px 16px;
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .dropdown-header {
+    height: 50px;
+    padding: 4px 5px 4px 16px;
+    border-radius: 40px;
+  }
+
+  .dropdown-selected-value {
+    font-size: 15px;
+  }
+
+  .dropdown-action-button {
+    width: 38px;
+    height: 38px;
+  }
+}

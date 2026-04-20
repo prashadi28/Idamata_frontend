@@ -158,3 +158,35 @@
   font-weight: 600;
   cursor: pointer;
 }
+
+@media (max-width: 550px) {
+  .price-sel-modal {
+    width: 95%;
+    max-height: 90vh;
+    border-radius: 12px;
+  }
+
+  .price-options-grid {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .price-inputs-container {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 20px;
+  }
+
+  .price-separator {
+    display: none;
+  }
+
+  .price-sel-footer {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .price-reset-btn, .price-show-btn {
+    width: 100%;
+  }
+}

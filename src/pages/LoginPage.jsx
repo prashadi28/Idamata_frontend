@@ -37,8 +37,16 @@ const IconManage = () => (
 export default function LoginPage({ onClose, context = 'login' }) {
   const [mobile, setMobile] = useState('');
 
-  const title = context === 'chat' ? 'My Chats' : 'Welcome to idamata';
-  const subtitle = context === 'chat' ? 'Login to see your chats' : 'Log in to manage your properties.';
+  let title = 'Welcome to idamata';
+  let subtitle = 'Log in to manage your properties.';
+
+  if (context === 'chat') {
+    title = 'My Chats';
+    subtitle = 'Login to see your chats';
+  } else if (context === 'post') {
+    title = 'Post an ad';
+    subtitle = 'Login to post your ad and keep track of it in your account.';
+  }
 
   return (
     <div className="login-overlay">
