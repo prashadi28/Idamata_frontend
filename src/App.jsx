@@ -13,6 +13,7 @@ import StaySafePage from './pages/StaySafePage';
 import CareersPage from './pages/CareersPage';
 import TermsPage from './pages/TermsPage';
 import PrivacyPage from './pages/PrivacyPage';
+import SitemapPage from './pages/SitemapPage';
 import Footer from './components/Footer';
 import CustomDropdown from './components/CustomDropdown';
 import {
@@ -269,7 +270,7 @@ function App() {
                 <User size={18} strokeWidth={2.5} />
                 <span>Login</span>
               </button>
-              <button onClick={() => setLoginContext('post')} className="post-ad-btn" style={{border: 'none', cursor: 'pointer', fontFamily: 'inherit', fontSize: '1rem'}}>POST YOUR PROPERTY</button>
+              <button onClick={() => setLoginContext('post')} className="post-ad-btn" style={{ border: 'none', cursor: 'pointer', fontFamily: 'inherit', fontSize: '1rem' }}>POST YOUR PROPERTY</button>
             </div>
           </div>
         </header>
@@ -295,7 +296,7 @@ function App() {
 
         {/* Categories */}
         <main className="container categories-section">
-          <h2 className="section-title">Featured Properties by Category</h2>
+          <h2 className="section-title">Featured Propertiesy Category</h2>
           <div className="category-rows-container">
             {displayedCategories.map(cat => (
               <CategoryRow key={cat.id} category={cat} />
@@ -327,6 +328,7 @@ function App() {
         <Route path="/careers" element={<CareersPage onChatClick={() => setLoginContext('chat')} onLoginClick={(ctx = 'login') => setLoginContext(ctx)} />} />
         <Route path="/terms-and-conditions" element={<TermsPage onChatClick={() => setLoginContext('chat')} onLoginClick={(ctx = 'login') => setLoginContext(ctx)} />} />
         <Route path="/privacy-policy" element={<PrivacyPage onChatClick={() => setLoginContext('chat')} onLoginClick={(ctx = 'login') => setLoginContext(ctx)} />} />
+        <Route path="/sitemap" element={<SitemapPage onChatClick={() => setLoginContext('chat')} onLoginClick={(ctx = 'login') => setLoginContext(ctx)} />} />
       </Routes>
       <Footer />
     </BrowserRouter>
@@ -334,3 +336,4 @@ function App() {
 }
 
 export default App;
+

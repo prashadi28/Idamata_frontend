@@ -54,7 +54,7 @@ const AboutPage = ({ onChatClick, onLoginClick }) => {
               <User size={18} strokeWidth={2.5} />
               <span>Login</span>
             </button>
-            <button onClick={() => onLoginClick('post')} className="post-ad-btn" style={{ backgroundColor: '#ffcc00', color: '#000', border: 'none', cursor: 'pointer', fontFamily: 'inherit', fontSize: '1rem' }}>POST YOUR PROPERTY</button>
+            <Link to="/post-ad" className="post-ad-btn" style={{ backgroundColor: '#ffcc00', color: '#000' }}>POST YOUR PROPERTY</Link>
           </div>
         </div>
       </header>

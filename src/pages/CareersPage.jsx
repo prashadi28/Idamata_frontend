@@ -9,7 +9,7 @@ import {
   MessageCircle,
   User
 } from 'lucide-react';
-import careersImage from '../assets/Careers.png';
+
 import './CareersPage.css';
 
 const LogoSmile = ({ size = 28 }) => (
@@ -72,9 +72,7 @@ const CareersPage = ({ onChatClick, onLoginClick }) => {
                   <Link to="/contact-us" className="secondary-cta-btn">Reach out to HR</Link>
                 </div>
               </div>
-              <div className="careers-hero-image">
-                <img src={careersImage} alt="Careers at idamata" />
-              </div>
+
             </div>
           </div>
         </section>

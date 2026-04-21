@@ -269,23 +269,23 @@ export default function PropertiesListingPage({ onChatClick, onLoginClick }) {
                     <span style={{ fontWeight: 600 }}>{selectedSubcategory}</span>
                   </li>
                   <li className="tree-level-4 tree-count">
-                    ({selectedSubcategory === 'Land For Sale' ? '26,629' :
-                      (selectedSubcategory === 'Houses For Sale' ? '17,854' :
-                        (selectedSubcategory === 'Houses For Rent' ? '3,244' :
-                          (selectedSubcategory === 'Apartments For Sale' ? '2,918' :
-                            (selectedSubcategory === 'Apartment Rentals' ? '1,809' :
-                              (selectedSubcategory === 'Commercial Property' ? '1,724' : '19,991')))))})
+                    ({selectedSubcategory === 'Land For Sale' ? '4' :
+                      (selectedSubcategory === 'Houses For Sale' ? '4' :
+                        (selectedSubcategory === 'Houses For Rent' ? '4' :
+                          (selectedSubcategory === 'Apartments For Sale' ? '4' :
+                            (selectedSubcategory === 'Apartment Rentals' ? '4' :
+                              (selectedSubcategory === 'Commercial Property' ? '4' : '4')))))})
                   </li>
                 </>
               ) : (
                 <div className="subcategory-list-sidebar">
                   {[
-                    { name: 'Houses For Sale', count: '23,450', icon: <Home size={16} /> },
-                    { name: 'Land For Sale', count: '18,210', icon: <Map size={16} /> },
-                    { name: 'Apartments For Sale', count: '8,420', icon: <Building2 size={16} /> },
-                    { name: 'Houses For Rent', count: '5,120', icon: <Key size={16} /> },
-                    { name: 'Apartment Rentals', count: '3,890', icon: <Building size={16} /> },
-                    { name: 'Commercial Property', count: '4,150', icon: <Briefcase size={16} /> }
+                    { name: 'Houses For Sale', count: '4', icon: <Home size={16} /> },
+                    { name: 'Land For Sale', count: '4', icon: <Map size={16} /> },
+                    { name: 'Apartments For Sale', count: '4', icon: <Building2 size={16} /> },
+                    { name: 'Houses For Rent', count: '4', icon: <Key size={16} /> },
+                    { name: 'Apartment Rentals', count: '4', icon: <Building size={16} /> },
+                    { name: 'Commercial Property', count: '4', icon: <Briefcase size={16} /> }
                   ].map((sub) => (
                     <li key={sub.name} className="tree-level-3 sub-link" onClick={() => setSelectedSubcategory(sub.name)}>
                       <Link to="#">
@@ -304,7 +304,7 @@ export default function PropertiesListingPage({ onChatClick, onLoginClick }) {
         {/* Main Content */}
         <main className="listing-results">
           <div className="results-header">
-            <span className="results-count">Showing 1-25 of {selectedSubcategory ? (selectedSubcategory === 'Land For Sale' ? '26,629' : (selectedSubcategory === 'Houses For Sale' ? '17,854' : (selectedSubcategory === 'Houses For Rent' ? '3,244' : (selectedSubcategory === 'Apartments For Sale' ? '2,918' : (selectedSubcategory === 'Apartment Rentals' ? '1,809' : (selectedSubcategory === 'Commercial Property' ? '1,724' : '19,991')))))) : '57,527'} ads</span>
+            <span className="results-count">Showing 1-25 of {selectedSubcategory ? (selectedSubcategory === 'Land For Sale' ? '4' : (selectedSubcategory === 'Houses For Sale' ? '4' : (selectedSubcategory === 'Houses For Rent' ? '4' : (selectedSubcategory === 'Apartments For Sale' ? '4' : (selectedSubcategory === 'Apartment Rentals' ? '4' : (selectedSubcategory === 'Commercial Property' ? '4' : '4')))))) : '4'} ads</span>
             <button className="save-search-btn">
               <Bookmark size={16} /> Save search
             </button>
