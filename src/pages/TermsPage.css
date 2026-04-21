@@ -1,0 +1,139 @@
+.terms-page {
+  background-color: #f1f4f5;
+  min-height: 100vh;
+}
+
+.terms-content-wrapper {
+  padding: 4rem 0;
+}
+
+.terms-card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  overflow: hidden;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.terms-header {
+  background: #fdfdfd;
+  padding: 3rem 2rem;
+  text-align: center;
+  border-bottom: 1px solid #ebeff0;
+}
+
+.terms-icon-circle {
+  width: 72px;
+  height: 72px;
+  background: rgba(0, 159, 127, 0.1);
+  color: #009f7f;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.5rem;
+}
+
+.terms-header h1 {
+  font-size: 2.25rem;
+  color: #2c3e50;
+  margin-bottom: 0.5rem;
+}
+
+.last-updated {
+  color: #707676;
+  font-size: 0.95rem;
+}
+
+.terms-body {
+  padding: 3rem 4rem;
+}
+
+.terms-section {
+  margin-bottom: 3rem;
+}
+
+.terms-section h2 {
+  font-size: 1.5rem;
+  color: #2c3e50;
+  margin-bottom: 1.25rem;
+  border-left: 4px solid #009f7f;
+  padding-left: 1rem;
+}
+
+.terms-section p {
+  color: #4a5568;
+  line-height: 1.7;
+  margin-bottom: 1rem;
+}
+
+.terms-list {
+  list-style: none;
+  padding: 0;
+  margin: 1.5rem 0;
+}
+
+.terms-list li {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: #4a5568;
+  margin-bottom: 0.75rem;
+  line-height: 1.5;
+}
+
+.terms-list li svg {
+  color: #009f7f;
+  flex-shrink: 0;
+}
+
+.prohibited-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.prohibited-item {
+  background: #fff5f5;
+  color: #c53030;
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  border: 1px solid #fed7d7;
+}
+
+.terms-footer {
+  padding: 2rem;
+  background: #f8fafb;
+  text-align: center;
+  border-top: 1px solid #ebeff0;
+}
+
+.back-home-link {
+  color: #009f7f;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.back-home-link:hover {
+  color: #008167;
+  text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  .terms-body {
+    padding: 2rem;
+  }
+  
+  .prohibited-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .terms-header h1 {
+    font-size: 1.75rem;
+  }
+}

@@ -98,13 +98,13 @@ const ContactPage = ({ onChatClick, onLoginClick }) => {
 
             <div className="contact-divider"></div>
             <div className="contact-method-col">
-              <a href="mailto:contact@peekhosting.com" className="contact-method-link">
+              <a href="mailto:support@idamata.lk" className="contact-method-link">
                 <div className="contact-method-icon-box">
                   <Mail size={32} strokeWidth={2} />
                 </div>
                 <div className="contact-method-details">
                   <span className="contact-method-label">Email us</span>
-                  <span className="contact-method-value">contact {"{at}"} peekhosting.com</span>
+                  <span className="contact-method-value">support@idamata.lk</span>
                 </div>
               </a>
             </div>

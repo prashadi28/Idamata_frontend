@@ -30,16 +30,16 @@ const Footer = () => {
             <h4>More from idamata</h4>
             <ul>
               <li><Link to="/sell-fast">Sell Fast</Link></li>
-              <li><Link to="#">Membership</Link></li>
-              <li><Link to="#">Banner Ads</Link></li>
-              <li><Link to="#">Boost Ad</Link></li>
+              <li><Link to="/membership">Membership</Link></li>
+              <li><Link to="/banner-ads">Banner Ads</Link></li>
+              <li><Link to="/boost-ad">Boost Ad</Link></li>
             </ul>
           </div>
           <div className="footer-col">
             <h4>Help & Support</h4>
             <ul>
               <li><Link to="/faqs">FAQ</Link></li>
-              <li><Link to="/contact-us">Stay safe</Link></li>
+              <li><Link to="/stay-safe">Stay safe</Link></li>
               <li><Link to="/contact-us">Contact Us</Link></li>
             </ul>
           </div>
@@ -47,9 +47,9 @@ const Footer = () => {
             <h4>About idamata</h4>
             <ul>
               <li><Link to="/about-us">About Us</Link></li>
-              <li><Link to="#">Careers</Link></li>
-              <li><Link to="#">Terms and Conditions</Link></li>
-              <li><Link to="#">Privacy policy</Link></li>
+              <li><Link to="/careers">Careers</Link></li>
+              <li><Link to="/terms-and-conditions">Terms and Conditions</Link></li>
+              <li><Link to="/privacy-policy">Privacy policy</Link></li>
               <li><Link to="#">Sitemap</Link></li>
             </ul>
           </div>

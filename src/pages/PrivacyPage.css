@@ -1,0 +1,154 @@
+.privacy-page {
+  background-color: #f0f7f6;
+  min-height: 100vh;
+}
+
+.privacy-content-wrapper {
+  padding: 4rem 0;
+}
+
+.privacy-card {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 159, 127, 0.08);
+  overflow: hidden;
+  max-width: 850px;
+  margin: 0 auto;
+}
+
+.privacy-header {
+  background: linear-gradient(to bottom, #ffffff, #f9fbfb);
+  padding: 3.5rem 2rem;
+  text-align: center;
+  border-bottom: 1px solid #eef2f2;
+}
+
+.privacy-icon-circle {
+  width: 80px;
+  height: 80px;
+  background: #009f7f;
+  color: white;
+  border-radius: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.5rem;
+  box-shadow: 0 8px 20px rgba(0, 159, 127, 0.2);
+  transform: rotate(-5deg);
+}
+
+.privacy-header h1 {
+  font-size: 2.5rem;
+  color: #1a202c;
+  margin-bottom: 0.75rem;
+}
+
+.last-updated {
+  color: #718096;
+  font-size: 0.9rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.privacy-body {
+  padding: 3.5rem 4rem;
+}
+
+.privacy-section {
+  margin-bottom: 3.5rem;
+}
+
+.section-title-with-icon {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.accent-icon {
+  color: #009f7f;
+}
+
+.privacy-section h2 {
+  font-size: 1.6rem;
+  color: #2d3748;
+  margin: 0;
+}
+
+.privacy-section p {
+  color: #4a5568;
+  line-height: 1.8;
+  font-size: 1.05rem;
+}
+
+.info-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+.info-badge {
+  background: #f0f7f6;
+  color: #009f7f;
+  padding: 0.5rem 1rem;
+  border-radius: 30px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border: 1px solid rgba(0, 159, 127, 0.1);
+}
+
+.privacy-list {
+  list-style: none;
+  padding: 0;
+  margin: 1.5rem 0;
+}
+
+.privacy-list li {
+  position: relative;
+  padding-left: 1.5rem;
+  color: #4a5568;
+  margin-bottom: 1rem;
+  line-height: 1.6;
+}
+
+.privacy-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 10px;
+  width: 8px;
+  height: 8px;
+  background: #009f7f;
+  border-radius: 50%;
+}
+
+.privacy-footer {
+  padding: 2.5rem;
+  background: #fdfdfd;
+  text-align: center;
+  border-top: 1px solid #eef2f2;
+}
+
+.back-home-link {
+  color: #009f7f;
+  font-weight: 700;
+  text-decoration: none;
+  font-size: 1.1rem;
+  transition: all 0.2s;
+}
+
+.back-home-link:hover {
+  text-decoration: underline;
+  opacity: 0.8;
+}
+
+@media (max-width: 768px) {
+  .privacy-body {
+    padding: 2.5rem 2rem;
+  }
+  
+  .privacy-header h1 {
+    font-size: 2rem;
+  }
+}

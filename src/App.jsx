@@ -6,6 +6,13 @@ import SellFastPage from './pages/SellFastPage';
 import ContactPage from './pages/ContactPage';
 import FAQPage from './pages/FAQPage';
 import AboutPage from './pages/AboutPage';
+import MembershipPage from './pages/MembershipPage';
+import BannerAdsPage from './pages/BannerAdsPage';
+import BoostAdPage from './pages/BoostAdPage';
+import StaySafePage from './pages/StaySafePage';
+import CareersPage from './pages/CareersPage';
+import TermsPage from './pages/TermsPage';
+import PrivacyPage from './pages/PrivacyPage';
 import Footer from './components/Footer';
 import CustomDropdown from './components/CustomDropdown';
 import {
@@ -313,6 +320,13 @@ function App() {
         <Route path="/contact-us" element={<ContactPage onChatClick={() => setLoginContext('chat')} onLoginClick={(ctx = 'login') => setLoginContext(ctx)} />} />
         <Route path="/faqs" element={<FAQPage onChatClick={() => setLoginContext('chat')} onLoginClick={(ctx = 'login') => setLoginContext(ctx)} />} />
         <Route path="/about-us" element={<AboutPage onChatClick={() => setLoginContext('chat')} onLoginClick={(ctx = 'login') => setLoginContext(ctx)} />} />
+        <Route path="/membership" element={<MembershipPage onChatClick={() => setLoginContext('chat')} onLoginClick={(ctx = 'login') => setLoginContext(ctx)} />} />
+        <Route path="/banner-ads" element={<BannerAdsPage onChatClick={() => setLoginContext('chat')} onLoginClick={(ctx = 'login') => setLoginContext(ctx)} />} />
+        <Route path="/boost-ad" element={<BoostAdPage onChatClick={() => setLoginContext('chat')} onLoginClick={(ctx = 'login') => setLoginContext(ctx)} />} />
+        <Route path="/stay-safe" element={<StaySafePage onChatClick={() => setLoginContext('chat')} onLoginClick={(ctx = 'login') => setLoginContext(ctx)} />} />
+        <Route path="/careers" element={<CareersPage onChatClick={() => setLoginContext('chat')} onLoginClick={(ctx = 'login') => setLoginContext(ctx)} />} />
+        <Route path="/terms-and-conditions" element={<TermsPage onChatClick={() => setLoginContext('chat')} onLoginClick={(ctx = 'login') => setLoginContext(ctx)} />} />
+        <Route path="/privacy-policy" element={<PrivacyPage onChatClick={() => setLoginContext('chat')} onLoginClick={(ctx = 'login') => setLoginContext(ctx)} />} />
       </Routes>
       <Footer />
     </BrowserRouter>

@@ -1,0 +1,144 @@
+.boost-ad-page {
+  background-color: #f4f5f5;
+  min-height: 100vh;
+  padding-bottom: 4rem;
+}
+
+.boost-ad-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.boost-ad-hero {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 3rem;
+  margin-bottom: 3rem;
+  gap: 2rem;
+}
+
+.boost-ad-hero-text {
+  flex: 1;
+}
+
+.boost-ad-hero-text h1 {
+  font-size: 2.2rem;
+  color: #12344d;
+  margin-bottom: 1rem;
+}
+
+.boost-ad-hero-text p {
+  font-size: 1.1rem;
+  color: #707676;
+  line-height: 1.6;
+}
+
+.boost-ad-hero-image-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.boost-ad-hero-image {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.boost-ad-benefits-section {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.boost-ad-benefits-section h2 {
+  font-size: 1.8rem;
+  color: #12344d;
+  margin-bottom: 2rem;
+}
+
+.boost-ad-benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+}
+
+.boost-ad-benefits-grid .benefit-card {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  transition: transform 0.2s;
+}
+
+.boost-ad-benefits-grid .benefit-card:hover {
+  transform: translateY(-5px);
+}
+
+.boost-ad-benefits-grid .benefit-card h3 {
+  color: #12344d;
+  font-size: 1.2rem;
+  margin: 1rem 0 0.5rem;
+}
+
+.boost-ad-benefits-grid .benefit-card p {
+  color: #707676;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.boost-ad-callout {
+  background: white;
+  color: #12344d;
+  text-align: center;
+  padding: 3rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.boost-ad-callout h2 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  color: #12344d;
+}
+
+.boost-ad-callout p {
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+  color: #707676;
+}
+
+.boost-ad-cta-btn {
+  display: inline-block;
+  background: #ffcc00;
+  color: #12344d;
+  font-weight: bold;
+  font-size: 1.1rem;
+  padding: 0.8rem 2rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.2s;
+  text-decoration: none;
+}
+
+.boost-ad-cta-btn:hover {
+  background: #e6b800;
+}
+
+@media (max-width: 768px) {
+  .boost-ad-hero {
+    flex-direction: column-reverse;
+    text-align: center;
+    padding: 2rem;
+  }
+}
