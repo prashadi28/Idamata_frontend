@@ -1,0 +1,607 @@
+/* PostAdPage.css - Marketplace Step-by-Step UI Layout */
+@import url('https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&display=swap');
+
+html,
+body {
+  background-color: #f1f5f9;
+}
+
+.ik-page-wrapper {
+  min-height: 100vh;
+  font-family: 'Public Sans', sans-serif;
+  color: #1e293b;
+  display: flex;
+  flex-direction: column;
+}
+
+/* HEADER overrides for isolation */
+.ik-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: #009f7f;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.ik-nav-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.ik-nav-container .nav-right .nav-action-btn {
+  color: white;
+}
+
+.ik-nav-container .nav-right .nav-action-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.ik-post-btn {
+  background: #ffcc00 !important;
+  color: #0f172a !important;
+  font-weight: 700 !important;
+}
+
+/* MAIN LAYOUT */
+.ik-main-container {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  flex: 1;
+}
+
+.ik-page-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.ik-page-header h1 {
+  font-size: 32px;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 8px;
+}
+
+.ik-page-header p {
+  color: #64748b;
+  font-size: 16px;
+}
+
+.ik-layout-flex {
+  display: flex;
+  gap: 32px;
+  align-items: flex-start;
+}
+
+.ik-form-section {
+  flex: 1;
+}
+
+.ik-sidebar-section {
+  width: 320px;
+  position: sticky;
+  top: 100px;
+}
+
+/* STEPPER */
+.ik-stepper {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  background: white;
+  padding: 16px 24px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+  border: 1px solid #e2e8f0;
+}
+
+.ik-step-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  flex: 1;
+}
+
+.ik-step-circle {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #f1f5f9;
+  color: #64748b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 14px;
+  margin-bottom: 8px;
+  z-index: 2;
+  transition: all 0.3s;
+}
+
+.ik-step-line {
+  position: absolute;
+  top: 16px;
+  left: 50%;
+  width: 100%;
+  height: 2px;
+  background: #e2e8f0;
+  z-index: 1;
+}
+
+.ik-step-name {
+  font-size: 12px;
+  font-weight: 600;
+  color: #64748b;
+}
+
+.ik-step-item.active .ik-step-circle {
+  background: #009f7f;
+  color: white;
+  box-shadow: 0 0 0 4px rgba(0, 159, 127, 0.15);
+}
+
+.ik-step-item.active .ik-step-name {
+  color: #009f7f;
+}
+
+.ik-step-item.completed .ik-step-circle {
+  background: #10b981;
+  color: white;
+}
+
+.ik-step-item.completed .ik-step-line {
+  background: #10b981;
+}
+
+/* FORM CARD */
+.ik-card {
+  background: white;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+  overflow: hidden;
+}
+
+.step-content {
+  padding: 32px;
+}
+
+.s-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.ik-card-footer {
+  padding: 24px 32px;
+  background: #f8fafc;
+  border-top: 1px solid #e2e8f0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* BUTTONS */
+.ik-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: none;
+}
+
+.ik-btn-text {
+  background: transparent;
+  color: #64748b;
+}
+
+.ik-btn-text:hover {
+  background: #f1f5f9;
+  color: #0f172a;
+}
+
+.ik-btn-primary {
+  background: #ffcc00;
+  color: #0f172a;
+  box-shadow: 0 4px 12px rgba(255, 204, 0, 0.25);
+}
+
+.ik-btn-primary:hover {
+  background: #e6b800;
+  transform: translateY(-2px);
+}
+
+.ik-btn-success {
+  background: #10b981;
+  color: white;
+  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.2);
+}
+
+.ik-btn-success:hover {
+  background: #059669;
+  transform: translateY(-1px);
+}
+
+.ik-btn-outline {
+  background: white;
+  border: 1px solid #cbd5e1;
+  color: #334155;
+}
+
+.ik-btn-outline:hover {
+  background: #f8fafc;
+  border-color: #94a3b8;
+}
+
+/* GRIDS */
+.ik-grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.ik-grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.mt-4 {
+  margin-top: 16px;
+}
+
+.mt-6 {
+  margin-top: 24px;
+}
+
+/* FORM ELEMENTS */
+.ik-form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.ik-form-group label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #334155;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.ik-form-section-box {
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 24px;
+  margin-bottom: 24px;
+}
+
+.ik-section-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0 0 20px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-bottom: 12px;
+  border-bottom: 1px dashed #e2e8f0;
+}
+
+.ik-form-group input,
+.ik-form-group select,
+.ik-form-group textarea {
+  width: 100%;
+  padding: 16px 20px;
+  border: 2px solid #e2e8f0;
+  border-radius: 14px;
+  font-family: inherit;
+  font-size: 16px;
+  color: #0f172a;
+  background: #f8fafc;
+  transition: all 0.2s ease;
+  outline: none;
+}
+
+.ik-form-group input:hover,
+.ik-form-group select:hover,
+.ik-form-group textarea:hover {
+  border-color: #cbd5e1;
+}
+
+.ik-form-group input:focus,
+.ik-form-group select:focus,
+.ik-form-group textarea:focus {
+  background: white;
+  border-color: #009f7f;
+  box-shadow: 0 0 0 4px rgba(0, 159, 127, 0.1);
+}
+
+.ik-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #475569;
+}
+
+.ik-checkbox input {
+  width: 18px;
+  height: 18px;
+  accent-color: #009f7f;
+}
+
+/* SELECTION CARDS */
+.ik-select-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 24px;
+  border: 2px solid #e2e8f0;
+  border-radius: 12px;
+  background: white;
+  color: #64748b;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-weight: 600;
+}
+
+.ik-select-card:hover {
+  border-color: #cbd5e1;
+  background: #f8fafc;
+}
+
+.ik-select-card.active {
+  border-color: #009f7f;
+  background: #f0fdf4;
+  color: #009f7f;
+}
+
+.ik-select-card.small {
+  padding: 16px;
+  flex-direction: row;
+  font-size: 14px;
+}
+
+/* LOCATION CARD */
+.ik-location-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  background: #f0fdf4;
+  border: 1px solid #86efac;
+  border-radius: 8px;
+}
+
+.ik-text-green {
+  color: #009f7f;
+}
+
+.ik-location-card h4 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 700;
+  color: #064e3b;
+}
+
+.ik-location-card p {
+  margin: 0;
+  font-size: 13px;
+  color: #065f46;
+}
+
+/* DRAG ZONE */
+.ik-drag-zone {
+  border: 2px dashed #cbd5e1;
+  background: #f8fafc;
+  padding: 40px;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.ik-sub-text {
+  font-size: 13px;
+  color: #64748b;
+  margin-bottom: 20px;
+}
+
+.ik-drag-zone h4 {
+  margin: 12px 0 4px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #334155;
+}
+
+.ik-drag-zone p {
+  margin: 0;
+  font-size: 13px;
+  color: #64748b;
+}
+
+.ik-photo-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 12px;
+}
+
+.ik-photo-slot {
+  aspect-ratio: 1;
+  border: 1px solid #e2e8f0;
+  background: #f8fafc;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: #94a3b8;
+  font-size: 11px;
+}
+
+/* SIDEBAR WIDGETS */
+.ik-info-card {
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 24px;
+}
+
+.ik-info-card.focus-card {
+  border-top: 4px solid #ffcc00;
+}
+
+.ik-info-card h4 {
+  font-size: 15px;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0 0 16px 0;
+}
+
+.ik-info-card ul {
+  padding-left: 20px;
+  margin: 0;
+  color: #475569;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.ik-preview-card {
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+}
+
+.ik-preview-card h4 {
+  padding: 16px 20px;
+  margin: 0;
+  font-size: 14px;
+  font-weight: 700;
+  border-bottom: 1px solid #e2e8f0;
+  background: #f8fafc;
+}
+
+.ik-preview-inner {
+  padding: 20px;
+}
+
+.p-img {
+  height: 120px;
+  background: #e2e8f0;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.p-info h5 {
+  margin: 0 0 8px;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.p-info h5.text-empty {
+  color: #94a3b8;
+}
+
+.p-price {
+  font-size: 18px;
+  font-weight: 800;
+  color: #009f7f;
+  margin: 0 0 8px;
+}
+
+.p-loc {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: #64748b;
+  margin: 0 0 12px;
+}
+
+.p-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.p-tags span {
+  font-size: 11px;
+  padding: 4px 8px;
+  background: #f1f5f9;
+  border-radius: 4px;
+  color: #475569;
+  font-weight: 600;
+}
+
+/* ANIMATION */
+.fade-in {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* RESPONSIVE */
+@media(max-width: 900px) {
+  .ik-layout-flex {
+    flex-direction: column;
+  }
+
+  .ik-sidebar-section {
+    width: 100%;
+    position: static;
+  }
+
+  .ik-grid-3 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .ik-stepper {
+    overflow-x: auto;
+    padding: 16px;
+  }
+
+  .ik-step-name {
+    display: none;
+  }
+
+  /* Hide text on mobile for stepper */
+}

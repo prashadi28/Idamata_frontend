@@ -113,7 +113,7 @@ const cityData = {
   }
 };
 
-const LocationSelectionModal = ({ isOpen, onClose }) => {
+const LocationSelectionModal = ({ isOpen, onClose, onSelect, isPostAdMode = false }) => {
   const [selectedDistrict, setSelectedDistrict] = useState('Kandy');
   const [selectedArea, setSelectedArea] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
@@ -121,10 +121,10 @@ const LocationSelectionModal = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
 
   const currentDistrictData = cityData[selectedDistrict] || { popular: [], all: [] };
-  const filteredPopular = currentDistrictData.popular.filter(area => 
+  const filteredPopular = currentDistrictData.popular.filter(area =>
     area.toLowerCase().includes(searchQuery.toLowerCase())
   );
-  const filteredAll = currentDistrictData.all.filter(area => 
+  const filteredAll = currentDistrictData.all.filter(area =>
     area.toLowerCase().includes(searchQuery.toLowerCase())
   ).sort();
 
@@ -165,9 +165,9 @@ const LocationSelectionModal = ({ isOpen, onClose }) => {
         <div className="loc-sel-search-wrapper">
           <div className="search-bar">
             <Search size={18} className="search-icon" />
-            <input 
-              type="text" 
-              placeholder="Search for a city, district or area..." 
+            <input
+              type="text"
+              placeholder="Search for a city, district or area..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
@@ -185,7 +185,7 @@ const LocationSelectionModal = ({ isOpen, onClose }) => {
             </div>
             <div className="districts-list">
               {districts.map((district) => (
-                <div 
+                <div
                   key={district}
                   className={`district-item ${selectedDistrict === district ? 'selected' : ''}`}
                   onClick={() => {
@@ -224,8 +224,8 @@ const LocationSelectionModal = ({ isOpen, onClose }) => {
                 </div>
                 <div className="popular-grid">
                   {filteredPopular.map((area, idx) => (
-                    <div 
-                      key={area} 
+                    <div
+                      key={area}
                       className={`popular-pill ${selectedArea === area ? 'selected' : ''}`}
                       onClick={() => setSelectedArea(area)}
                     >
@@ -252,7 +252,7 @@ const LocationSelectionModal = ({ isOpen, onClose }) => {
                 </div>
                 <div className="areas-list">
                   {filteredAll.map((area) => (
-                    <div 
+                    <div
                       key={area}
                       className={`area-list-item ${selectedArea === area ? 'selected' : ''}`}
                       onClick={() => setSelectedArea(area)}
@@ -279,12 +279,15 @@ const LocationSelectionModal = ({ isOpen, onClose }) => {
             <RotateCcw size={16} />
             Reset all
           </button>
-          
+
           <div className="footer-right">
-            <span className="ad-count">1245 ads found</span>
-            <button className="show-posts-btn" onClick={onClose}>
-              Show 1245 posts
-              <ChevronRight size={18} />
+            {!isPostAdMode && <span className="ad-count">1245 ads found</span>}
+            <button className="show-posts-btn" onClick={() => {
+              if (onSelect) onSelect({ district: selectedDistrict, city: selectedArea });
+              onClose();
+            }}>
+              {isPostAdMode ? 'Select Location' : 'Show 1245 posts'}
+              {!isPostAdMode && <ChevronRight size={18} />}
             </button>
           </div>
         </div>

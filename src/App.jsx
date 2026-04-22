@@ -14,6 +14,7 @@ import CareersPage from './pages/CareersPage';
 import TermsPage from './pages/TermsPage';
 import PrivacyPage from './pages/PrivacyPage';
 import SitemapPage from './pages/SitemapPage';
+import PostAdPage from './pages/PostAdPage';
 import Footer from './components/Footer';
 import CustomDropdown from './components/CustomDropdown';
 import {
@@ -239,6 +240,7 @@ function App() {
 
   const HomePage = () => {
     const [selectedCategoryId, setSelectedCategoryId] = useState("");
+    const isLoggedIn = localStorage.getItem('idamata_logged_in') === 'true';
 
     const displayedCategories = selectedCategoryId
       ? categories.filter(cat => cat.id.toString() === selectedCategoryId)
@@ -266,11 +268,25 @@ function App() {
                 <MessageCircle size={18} strokeWidth={2.5} />
                 <span>Chat</span>
               </button>
-              <button onClick={() => setLoginContext('login')} className="nav-action-btn">
+              <button onClick={() => {
+                if (isLoggedIn) {
+                  const out = window.confirm("Are you sure you want to log out?");
+                  if (out) {
+                    localStorage.removeItem('idamata_logged_in');
+                    window.location.reload();
+                  }
+                } else {
+                  setLoginContext('login');
+                }
+              }} className="nav-action-btn">
                 <User size={18} strokeWidth={2.5} />
-                <span>Login</span>
+                <span>{isLoggedIn ? 'Account' : 'Login'}</span>
               </button>
-              <button onClick={() => setLoginContext('post')} className="post-ad-btn" style={{ border: 'none', cursor: 'pointer', fontFamily: 'inherit', fontSize: '1rem' }}>POST YOUR PROPERTY</button>
+              {isLoggedIn ? (
+                <Link to="/post-ad" className="post-ad-btn" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', fontFamily: 'inherit', fontSize: '1rem' }}>POST YOUR PROPERTY</Link>
+              ) : (
+                <button onClick={() => setLoginContext('post')} className="post-ad-btn" style={{ border: 'none', cursor: 'pointer', fontFamily: 'inherit', fontSize: '1rem' }}>POST YOUR PROPERTY</button>
+              )}
             </div>
           </div>
         </header>
@@ -329,6 +345,7 @@ function App() {
         <Route path="/terms-and-conditions" element={<TermsPage onChatClick={() => setLoginContext('chat')} onLoginClick={(ctx = 'login') => setLoginContext(ctx)} />} />
         <Route path="/privacy-policy" element={<PrivacyPage onChatClick={() => setLoginContext('chat')} onLoginClick={(ctx = 'login') => setLoginContext(ctx)} />} />
         <Route path="/sitemap" element={<SitemapPage onChatClick={() => setLoginContext('chat')} onLoginClick={(ctx = 'login') => setLoginContext(ctx)} />} />
+        <Route path="/post-ad" element={<PostAdPage />} />
       </Routes>
       <Footer />
     </BrowserRouter>

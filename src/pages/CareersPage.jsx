@@ -9,6 +9,7 @@ import {
   MessageCircle,
   User
 } from 'lucide-react';
+import careersImage from '../assets/Careers.png';
 
 import './CareersPage.css';
 
@@ -72,7 +73,9 @@ const CareersPage = ({ onChatClick, onLoginClick }) => {
                   <Link to="/contact-us" className="secondary-cta-btn">Reach out to HR</Link>
                 </div>
               </div>
-
+              <div className="careers-hero-image">
+                <img src={careersImage} alt="Careers at idamata" style={{ maxWidth: '100%', height: 'auto', borderRadius: '12px' }} />
+              </div>
             </div>
           </div>
         </section>

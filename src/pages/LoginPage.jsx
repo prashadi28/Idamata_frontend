@@ -37,6 +37,10 @@ const IconManage = () => (
 export default function LoginPage({ onClose, context = 'login' }) {
   const [mobile, setMobile] = useState('');
 
+
+  const [testName, setTestName] = useState('peshala');
+  const [testPassword, setTestPassword] = useState('1234567');
+
   let title = 'Welcome to idamata';
   let subtitle = 'Log in to manage your properties.';
 
@@ -57,7 +61,7 @@ export default function LoginPage({ onClose, context = 'login' }) {
           <h2 className="login-welcome">{title}</h2>
           <p className="login-sub">{subtitle}</p>
 
-          <ul className="login-features">
+          <ul className="login-features"> 
             <li>
               <span className="feature-icon"><IconPosting /></span>
               <span>Start posting your own ads.</span>
@@ -119,6 +123,38 @@ export default function LoginPage({ onClose, context = 'login' }) {
             <Mail size={16} style={{ marginRight: '8px' }} strokeWidth={2.5} />
             Continue with Email
           </button>
+
+          {/* Testing UI Section */}
+          <div className="login-testing-ui" style={{ marginTop: '24px', padding: '16px', backgroundColor: '#f9fafb', border: '1px dashed #ced4da', borderRadius: '12px' }}>
+            <div style={{ textAlign: 'center', marginBottom: '12px', fontSize: '0.85rem', fontWeight: 'bold', color: '#6c757d' }}>FRONTEND TESTING UI</div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+              <input
+                type="text"
+                value={testName}
+                onChange={(e) => setTestName(e.target.value)}
+                placeholder="Name"
+                style={{ padding: '10px', borderRadius: '8px', border: '1px solid #dee2e6', fontSize: '0.9rem', outline: 'none' }}
+              />
+              <input
+                type="password"
+                value={testPassword}
+                onChange={(e) => setTestPassword(e.target.value)}
+                placeholder="Password"
+                style={{ padding: '10px', borderRadius: '8px', border: '1px solid #dee2e6', fontSize: '0.9rem', outline: 'none' }}
+              />
+              <button
+                className="login-btn"
+                style={{ backgroundColor: '#343a40', color: 'white', marginTop: '4px', border: 'none' }}
+                onClick={() => {
+                  alert(`Testing Login \nName: ${testName}\nPassword: ${testPassword}`);
+                  localStorage.setItem('idamata_logged_in', 'true');
+                  window.location.href = '/';
+                }}
+              >
+                Test Login
+              </button>
+            </div>
+          </div>
 
           <div className="login-terms-container">
             <p className="login-terms-head">By signing up for an account you agree to our</p>
