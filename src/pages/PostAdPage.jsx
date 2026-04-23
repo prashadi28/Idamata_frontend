@@ -29,7 +29,7 @@ const LogoSmile = ({ size = 28 }) => (
   </svg>
 );
 
-const PostAdPage = () => {
+const PostAdPage = ({ onChatClick, onLoginClick }) => {
   const navigate = useNavigate();
   const userName = localStorage.getItem('idamata_test_name') || 'Peshala';
 
@@ -115,8 +115,6 @@ const PostAdPage = () => {
                   <option value="Commercial Property">Commercial Property</option>
                 </select>
               </div>
-
-
             </div>
 
             {/* SECTION: Land Details */}
@@ -137,11 +135,11 @@ const PostAdPage = () => {
                     {formData.landType === 'Other' && (
                       <div className="ik-form-group">
                         <label>Specify Land Type</label>
-                        <input 
-                          type="text" 
-                          value={formData.otherLandType} 
-                          onChange={e => updateForm('otherLandType', e.target.value)} 
-                          placeholder="e.g. Industrial" 
+                        <input
+                          type="text"
+                          value={formData.otherLandType}
+                          onChange={e => updateForm('otherLandType', e.target.value)}
+                          placeholder="e.g. Industrial"
                         />
                       </div>
                     )}
@@ -423,18 +421,14 @@ const PostAdPage = () => {
           </div>
 
           <div className="nav-right">
-            <button className="nav-action-btn">
-              <HelpCircle size={18} />
-              <span>Help</span>
+            <button className="nav-action-btn" onClick={onChatClick}>
+              <MessageCircle size={18} />
+              <span>Chat</span>
             </button>
-            <button className="nav-action-btn" onClick={() => {
-              if (window.confirm("Log out?")) {
-                localStorage.removeItem('idamata_logged_in'); navigate('/');
-              }
-            }}>
+            <Link to="/account" className="nav-action-btn" style={{ textDecoration: 'none' }}>
               <User size={18} />
               <span>My Account</span>
-            </button>
+            </Link>
             <button className="post-ad-btn ik-post-btn">
               POST YOUR AD
             </button>
@@ -484,7 +478,44 @@ const PostAdPage = () => {
                     Save & Continue <ChevronRight size={18} />
                   </button>
                 ) : (
-                  <button className="ik-btn ik-btn-success" onClick={() => { alert('Your secure payment has been processed and your ad is now under review!'); navigate('/'); }}>
+                  <button className="ik-btn ik-btn-success" onClick={() => {
+                    alert('Your secure payment has been processed and your ad is now under review!');
+
+                    // Create a mock ad object from form data
+                    const isLand = formData.category === 'Land For Sale';
+                    const isCommercial = formData.category === 'Commercial Property';
+                    
+                    let adDetails = '';
+                    if (isLand) {
+                      adDetails = `${formData.landSize || 0} ${formData.landSizeUnit}`;
+                    } else if (isCommercial) {
+                      adDetails = `${formData.houseSize || 0} sqft`;
+                    } else {
+                      adDetails = `${formData.bedrooms || 0} Beds • ${formData.bathrooms || 0} Baths • ${formData.houseSize || 0} sqft`;
+                    }
+
+                    const priceFormatted = formData.price
+                      ? `Rs ${parseInt(formData.price).toLocaleString()}${formData.priceUnit !== 'Total price' ? ' ' + formData.priceUnit : ''}`
+                      : 'Negotiable';
+
+                    const newAd = {
+                      id: Date.now(),
+                      title: formData.title || 'Premium Property',
+                      price: priceFormatted,
+                      location: formData.city || formData.district || 'Colombo',
+                      details: adDetails,
+                      img: photos && photos.length > 0 ? photos[0] : 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=400&q=80',
+                      category: formData.category, // Exact match
+                      isUserAd: true,
+                      status: 'Under Review'
+                    };
+
+                    // Save to localStorage
+                    const existingAds = JSON.parse(localStorage.getItem('idamata_user_ads') || '[]');
+                    localStorage.setItem('idamata_user_ads', JSON.stringify([newAd, ...existingAds]));
+
+                    navigate('/');
+                  }}>
                     {formData.paymentMethod === 'online' ? 'Pay & Publish Ad' : 'Submit Bank Details'} <CheckCircle size={18} />
                   </button>
                 )}
@@ -518,12 +549,18 @@ const PostAdPage = () => {
                 </div>
                 <div className="p-info">
                   <h5 className={formData.title ? '' : 'text-empty'}>{formData.title || 'Property Title Here'}</h5>
-                  <p className="p-price">{formData.price ? `Rs ${parseInt(formData.price).toLocaleString()}` : 'Rs 0'}</p>
+                  <p className="p-price">
+                    {formData.price
+                      ? `Rs ${parseInt(formData.price).toLocaleString()}${formData.priceUnit !== 'Total price' ? ' ' + formData.priceUnit : ''}`
+                      : 'Rs 0'}
+                  </p>
                   <p className="p-loc"><MapPin size={12} /> {formData.city ? `${formData.city}, ${formData.district}` : 'Location missing'}</p>
 
                   <div className="p-tags">
                     {formData.category && <span>{formData.category}</span>}
                     {formData.bedrooms && <span>{formData.bedrooms} Beds</span>}
+                    {formData.bathrooms && <span>{formData.bathrooms} Baths</span>}
+                    {formData.houseSize && <span>{formData.houseSize} sqft</span>}
                     {formData.landSize && <span>{formData.landSize} {formData.landSizeUnit}</span>}
                   </div>
                 </div>

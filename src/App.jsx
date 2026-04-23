@@ -16,6 +16,8 @@ import PrivacyPage from './pages/PrivacyPage';
 import SitemapPage from './pages/SitemapPage';
 import PostAdPage from './pages/PostAdPage';
 import Footer from './components/Footer';
+import AccountPage from './pages/AccountPage';
+import ChatVerifyModal from './components/ChatVerifyModal';
 import CustomDropdown from './components/CustomDropdown';
 import {
   Home,
@@ -58,12 +60,12 @@ const LogoSmile = ({ size = 28 }) => (
 );
 
 const categories = [
-  { id: 1, name: 'Houses For Sale', icon: <Home />, count: '23,450 ads' },
-  { id: 2, name: 'Land For Sale', icon: <Trees />, count: '18,210 ads' },
-  { id: 3, name: 'Apartments For Sale', icon: <Building2 />, count: '8,420 ads' },
-  { id: 4, name: 'Houses For Rent', icon: <Key />, count: '5,120 ads' },
-  { id: 5, name: 'Apartment Rentals', icon: <Bed />, count: '3,890 ads' },
-  { id: 6, name: 'Commercial Property', icon: <Building />, count: '4,150 ads' },
+  { id: 1, name: 'Houses For Sale', icon: <Home />, count: '20 ads' },
+  { id: 2, name: 'Land For Sale', icon: <Trees />, count: '20 ads' },
+  { id: 3, name: 'Apartments For Sale', icon: <Building2 />, count: '20 ads' },
+  { id: 4, name: 'Houses For Rent', icon: <Key />, count: '20 ads' },
+  { id: 5, name: 'Apartment Rentals', icon: <Bed />, count: '20 ads' },
+  { id: 6, name: 'Commercial Property', icon: <Building />, count: '20 ads' },
 ];
 
 
@@ -129,7 +131,7 @@ const generateMockAds = (categoryName) => {
       'https://images.unsplash.com/photo-1574362848149-11496d93a7c7?w=400&q=80'
     ];
   } else if (cat.includes('commercial')) {
-    details = 'Office Space • 2000 sqft';
+    details = '2000 sqft';
     imgs = [
       'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&q=80',
       'https://images.unsplash.com/photo-1497366216548-37526070297c?w=400&q=80',
@@ -192,7 +194,27 @@ const generateMockAds = (categoryName) => {
 
 const CategoryRow = ({ category }) => {
   const scrollRef = React.useRef(null);
-  const ads = React.useMemo(() => generateMockAds(category.name), [category.name]);
+  const [userAds, setUserAds] = React.useState([]);
+
+  React.useEffect(() => {
+    try {
+      const savedData = localStorage.getItem('idamata_user_ads');
+      const savedAds = savedData ? JSON.parse(savedData) : [];
+      if (Array.isArray(savedAds)) {
+        const filtered = savedAds.filter(ad =>
+          ad && ad.category && ad.category.trim().toLowerCase() === category.name.trim().toLowerCase()
+        );
+        setUserAds(filtered);
+      }
+    } catch (e) {
+      console.error("Error loading user ads", e);
+    }
+  }, [category.name]);
+
+  const ads = React.useMemo(() => {
+    const mockAds = generateMockAds(category.name);
+    return [...userAds, ...mockAds];
+  }, [category.name, userAds]);
 
   const scroll = (direction) => {
     if (scrollRef.current) {
@@ -216,7 +238,18 @@ const CategoryRow = ({ category }) => {
         <button className="carousel-nav-btn prev" onClick={() => scroll('left')}>❮</button>
         <div className="category-carousel-container" ref={scrollRef}>
           {ads.map((ad, idx) => (
-            <a key={idx} href={`/ad/${ad.id}`} className="vertical-ad-card">
+            <a key={idx} href={`/ad/${ad.id}`} className="vertical-ad-card" style={{ position: 'relative' }}>
+              {ad.isUserAd && (
+                <div style={{
+                  position: 'absolute', top: '10px', right: '10px',
+                  background: ad.status === 'Under Review' ? '#f59e0b' : '#10b981',
+                  color: '#fff', padding: '4px 8px', borderRadius: '6px',
+                  fontSize: '10px', fontWeight: 'bold', zIndex: 10,
+                  boxShadow: '0 2px 8px rgba(0,0,0,0.2)'
+                }}>
+                  {ad.status.toUpperCase()}
+                </div>
+              )}
               <div className="vertical-ad-image-container">
                 <img src={ad.img} alt={ad.title} className="vertical-ad-image" />
               </div>
@@ -237,6 +270,7 @@ const CategoryRow = ({ category }) => {
 
 function App() {
   const [loginContext, setLoginContext] = useState(null);
+  const [showChatModal, setShowChatModal] = useState(false);
 
   const HomePage = () => {
     const [selectedCategoryId, setSelectedCategoryId] = useState("");
@@ -264,24 +298,22 @@ function App() {
             </div>
 
             <div className="nav-right">
-              <button onClick={() => setLoginContext('chat')} className="nav-action-btn">
+              <button onClick={() => setShowChatModal(true)} className="nav-action-btn">
                 <MessageCircle size={18} strokeWidth={2.5} />
                 <span>Chat</span>
               </button>
-              <button onClick={() => {
-                if (isLoggedIn) {
-                  const out = window.confirm("Are you sure you want to log out?");
-                  if (out) {
-                    localStorage.removeItem('idamata_logged_in');
-                    window.location.reload();
-                  }
-                } else {
-                  setLoginContext('login');
-                }
-              }} className="nav-action-btn">
-                <User size={18} strokeWidth={2.5} />
-                <span>{isLoggedIn ? 'Account' : 'Login'}</span>
-              </button>
+
+              {isLoggedIn ? (
+                <Link to="/account" className="nav-action-btn" style={{ textDecoration: 'none' }}>
+                  <User size={18} strokeWidth={2.5} />
+                  <span>Account</span>
+                </Link>
+              ) : (
+                <button onClick={() => setLoginContext('login')} className="nav-action-btn">
+                  <User size={18} strokeWidth={2.5} />
+                  <span>Login</span>
+                </button>
+              )}
               {isLoggedIn ? (
                 <Link to="/post-ad" className="post-ad-btn" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', fontFamily: 'inherit', fontSize: '1rem' }}>POST YOUR PROPERTY</Link>
               ) : (
@@ -330,22 +362,24 @@ function App() {
   return (
     <BrowserRouter>
       {loginContext && <LoginPage context={loginContext} onClose={() => setLoginContext(null)} />}
+      <ChatVerifyModal isOpen={showChatModal} onClose={() => setShowChatModal(false)} />
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/category/:categoryId" element={<PropertiesListingPage onChatClick={() => setLoginContext('chat')} onLoginClick={(ctx = 'login') => setLoginContext(ctx)} />} />
-        <Route path="/sell-fast" element={<SellFastPage onChatClick={() => setLoginContext('chat')} onLoginClick={(ctx = 'login') => setLoginContext(ctx)} />} />
-        <Route path="/contact-us" element={<ContactPage onChatClick={() => setLoginContext('chat')} onLoginClick={(ctx = 'login') => setLoginContext(ctx)} />} />
-        <Route path="/faqs" element={<FAQPage onChatClick={() => setLoginContext('chat')} onLoginClick={(ctx = 'login') => setLoginContext(ctx)} />} />
-        <Route path="/about-us" element={<AboutPage onChatClick={() => setLoginContext('chat')} onLoginClick={(ctx = 'login') => setLoginContext(ctx)} />} />
-        <Route path="/membership" element={<MembershipPage onChatClick={() => setLoginContext('chat')} onLoginClick={(ctx = 'login') => setLoginContext(ctx)} />} />
-        <Route path="/banner-ads" element={<BannerAdsPage onChatClick={() => setLoginContext('chat')} onLoginClick={(ctx = 'login') => setLoginContext(ctx)} />} />
-        <Route path="/boost-ad" element={<BoostAdPage onChatClick={() => setLoginContext('chat')} onLoginClick={(ctx = 'login') => setLoginContext(ctx)} />} />
-        <Route path="/stay-safe" element={<StaySafePage onChatClick={() => setLoginContext('chat')} onLoginClick={(ctx = 'login') => setLoginContext(ctx)} />} />
-        <Route path="/careers" element={<CareersPage onChatClick={() => setLoginContext('chat')} onLoginClick={(ctx = 'login') => setLoginContext(ctx)} />} />
-        <Route path="/terms-and-conditions" element={<TermsPage onChatClick={() => setLoginContext('chat')} onLoginClick={(ctx = 'login') => setLoginContext(ctx)} />} />
-        <Route path="/privacy-policy" element={<PrivacyPage onChatClick={() => setLoginContext('chat')} onLoginClick={(ctx = 'login') => setLoginContext(ctx)} />} />
-        <Route path="/sitemap" element={<SitemapPage onChatClick={() => setLoginContext('chat')} onLoginClick={(ctx = 'login') => setLoginContext(ctx)} />} />
-        <Route path="/post-ad" element={<PostAdPage />} />
+        <Route path="/account" element={<AccountPage />} />
+        <Route path="/category/:categoryId" element={<PropertiesListingPage onChatClick={() => setShowChatModal(true)} onLoginClick={(ctx = 'login') => setLoginContext(ctx)} />} />
+        <Route path="/sell-fast" element={<SellFastPage onChatClick={() => setShowChatModal(true)} onLoginClick={(ctx = 'login') => setLoginContext(ctx)} />} />
+        <Route path="/contact-us" element={<ContactPage onChatClick={() => setShowChatModal(true)} onLoginClick={(ctx = 'login') => setLoginContext(ctx)} />} />
+        <Route path="/faqs" element={<FAQPage onChatClick={() => setShowChatModal(true)} onLoginClick={(ctx = 'login') => setLoginContext(ctx)} />} />
+        <Route path="/about-us" element={<AboutPage onChatClick={() => setShowChatModal(true)} onLoginClick={(ctx = 'login') => setLoginContext(ctx)} />} />
+        <Route path="/membership" element={<MembershipPage onChatClick={() => setShowChatModal(true)} onLoginClick={(ctx = 'login') => setLoginContext(ctx)} />} />
+        <Route path="/banner-ads" element={<BannerAdsPage onChatClick={() => setShowChatModal(true)} onLoginClick={(ctx = 'login') => setLoginContext(ctx)} />} />
+        <Route path="/boost-ad" element={<BoostAdPage onChatClick={() => setShowChatModal(true)} onLoginClick={(ctx = 'login') => setLoginContext(ctx)} />} />
+        <Route path="/stay-safe" element={<StaySafePage onChatClick={() => setShowChatModal(true)} onLoginClick={(ctx = 'login') => setLoginContext(ctx)} />} />
+        <Route path="/careers" element={<CareersPage onChatClick={() => setShowChatModal(true)} onLoginClick={(ctx = 'login') => setLoginContext(ctx)} />} />
+        <Route path="/terms-and-conditions" element={<TermsPage onChatClick={() => setShowChatModal(true)} onLoginClick={(ctx = 'login') => setLoginContext(ctx)} />} />
+        <Route path="/privacy-policy" element={<PrivacyPage onChatClick={() => setShowChatModal(true)} onLoginClick={(ctx = 'login') => setLoginContext(ctx)} />} />
+        <Route path="/sitemap" element={<SitemapPage onChatClick={() => setShowChatModal(true)} onLoginClick={(ctx = 'login') => setLoginContext(ctx)} />} />
+        <Route path="/post-ad" element={<PostAdPage onChatClick={() => setShowChatModal(true)} onLoginClick={(ctx = 'login') => setLoginContext(ctx)} />} />
       </Routes>
       <Footer />
     </BrowserRouter>

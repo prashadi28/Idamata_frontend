@@ -1,0 +1,119 @@
+.account-page-wrapper {
+  min-height: 100vh;
+  background: #f4f4f4;
+  padding-top: 2.5rem;
+  padding-bottom: 4rem;
+}
+
+.account-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.account-header {
+  margin-bottom: 2rem;
+}
+
+.account-header h1 {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: #1e293b;
+  letter-spacing: -0.3px;
+}
+
+.account-header p {
+  font-size: 0.875rem;
+  color: #94a3b8;
+  marginTop: 4px;
+}
+
+.account-layout {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 1.75rem;
+  align-items: start;
+}
+
+.account-card {
+  background: #fff;
+  border-radius: 16px;
+  border: 1px solid #e9f0ed;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+  overflow: hidden;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+  padding: 1.75rem;
+}
+
+.account-ad-card {
+  display: flex;
+  gap: 1.5rem;
+  padding: 1rem;
+}
+
+.account-ad-image {
+  width: 160px;
+  height: 120px;
+  border-radius: 12px;
+  overflow: hidden;
+  flex-shrink: 0;
+  background: #f1f5f9;
+}
+
+.account-ad-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.account-ad-details-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0; /* Prevents text from pushing width */
+}
+
+/* Responsive Styles */
+@media (max-width: 992px) {
+  .account-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    position: sticky;
+    top: 80px;
+    z-index: 10;
+  }
+}
+
+@media (max-width: 640px) {
+  .account-page-wrapper {
+    padding-top: 1.5rem;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+    padding: 1.25rem;
+  }
+
+  .account-header h1 {
+    font-size: 1.5rem;
+  }
+
+  .account-ad-card {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .account-ad-image {
+    width: 100%;
+    height: 200px;
+  }
+}

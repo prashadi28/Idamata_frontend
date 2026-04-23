@@ -71,6 +71,10 @@ const RefineModal = ({
   const [maxPrice, setMaxPrice] = useState('');
   const [minSize, setMinSize] = useState(0);
   const [maxSize, setMaxSize] = useState(100000);
+  const [minSizeRaw, setMinSizeRaw] = useState("0");
+  const [maxSizeRaw, setMaxSizeRaw] = useState("100000");
+  const [isMinFocused, setIsMinFocused] = useState(false);
+  const [isMaxFocused, setIsMaxFocused] = useState(false);
   const [selectedPriceRange, setSelectedPriceRange] = useState(null);
   const sliderRef = useRef(null);
   const isDragging = useRef(null);
@@ -90,9 +94,13 @@ const RefineModal = ({
       const value = Math.round(percent * SLIDER_MAX);
 
       if (isDragging.current === 'left') {
-        setMinSize(Math.min(value, maxSize));
+        const val = Math.min(value, maxSize);
+        setMinSize(val);
+        setMinSizeRaw(val.toString());
       } else {
-        setMaxSize(Math.max(value, minSize));
+        const val = Math.max(value, minSize);
+        setMaxSize(val);
+        setMaxSizeRaw(val.toString());
       }
     };
 
@@ -284,8 +292,18 @@ const RefineModal = ({
                 <div className="size-input-box">
                   <input
                     type="text"
-                    value={minSize.toLocaleString()}
-                    onChange={(e) => setMinSize(Math.min(Number(e.target.value.replace(/,/g, '')) || 0, maxSize))}
+                    value={isMinFocused ? minSizeRaw : minSize.toLocaleString()}
+                    onFocus={() => {
+                      setIsMinFocused(true);
+                      setMinSizeRaw(minSize.toString());
+                    }}
+                    onBlur={() => {
+                      setIsMinFocused(false);
+                      const num = Number(minSizeRaw) || 0;
+                      const finalNum = Math.min(Math.max(0, num), maxSize);
+                      setMinSize(finalNum);
+                    }}
+                    onChange={(e) => setMinSizeRaw(e.target.value.replace(/[^0-9]/g, ''))}
                   />
                   <span className="size-unit">{selectedSubcategory === 'Land For Sale' ? 'perches' : 'sq ft'}</span>
                 </div>
@@ -293,8 +311,18 @@ const RefineModal = ({
                 <div className="size-input-box">
                   <input
                     type="text"
-                    value={maxSize.toLocaleString()}
-                    onChange={(e) => setMaxSize(Math.max(Number(e.target.value.replace(/,/g, '')) || 0, minSize))}
+                    value={isMaxFocused ? maxSizeRaw : maxSize.toLocaleString()}
+                    onFocus={() => {
+                      setIsMaxFocused(true);
+                      setMaxSizeRaw(maxSize.toString());
+                    }}
+                    onBlur={() => {
+                      setIsMaxFocused(false);
+                      const num = Number(maxSizeRaw) || 0;
+                      const finalNum = Math.max(Math.min(num, SLIDER_MAX), minSize);
+                      setMaxSize(finalNum);
+                    }}
+                    onChange={(e) => setMaxSizeRaw(e.target.value.replace(/[^0-9]/g, ''))}
                   />
                   <span className="size-unit">{selectedSubcategory === 'Land For Sale' ? 'perches' : 'sq ft'}</span>
                 </div>
@@ -458,21 +486,21 @@ const RefineModal = ({
               onToggle={() => toggleSection('propertyType')}
             >
               <div className="refine-radio-list">
-                {(selectedSubcategory === 'Commercial Property' 
-                  ? ['All', 'Hotel', 'Building', 'Other', 'Factory / Workshop', 'Warehouse / Storage'] 
+                {(selectedSubcategory === 'Commercial Property'
+                  ? ['All', 'Hotel', 'Building', 'Other', 'Factory / Workshop', 'Warehouse / Storage']
                   : ['All', 'Residential', 'Commercial', 'Land']
                 ).map(type => (
                   <label key={type} className="radio-item">
-                    <input 
-                      type="radio" 
-                      name="refine-ptype" 
+                    <input
+                      type="radio"
+                      name="refine-ptype"
                       checked={selectedPropertyType === type}
                       onChange={() => {
                         setSelectedPropertyType(type);
                         if (onPropertyTypeChange) onPropertyTypeChange(type);
                       }}
-                    /> 
-                    <span className="radio-circle"></span> 
+                    />
+                    <span className="radio-circle"></span>
                     {type === 'All' ? 'All types' : type}
                   </label>
                 ))}
