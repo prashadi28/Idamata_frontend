@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import {
   User, Mail, MapPin, Lock, LayoutDashboard, Settings,
-  LogOut, Eye, EyeOff, CheckCircle2, Home, X, MessageCircle, Phone
+  LogOut, Eye, EyeOff, CheckCircle2, Home, X, MessageCircle, Phone, Trash2
 } from 'lucide-react';
 import './AccountPage.css';
 
@@ -405,6 +405,38 @@ const AccountPage = () => {
                           onMouseLeave={e => e.currentTarget.style.background = '#fff1f2'}
                         >
                           <LogOut size={16} /> Logout
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* Delete Account Card */}
+                    <div className="account-card" style={{ border: '1px solid #fecdd3', background: '#fffbfa' }}>
+                      <div style={{
+                        display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                        padding: '1.25rem 1.75rem'
+                      }}>
+                        <div>
+                          <h3 style={{ fontWeight: 800, fontSize: '1rem', color: '#e11d48', marginBottom: '2px' }}>Delete Account</h3>
+                          <p style={{ fontSize: '0.78rem', color: '#94a3b8' }}>Permanently remove your account and all associated data</p>
+                        </div>
+                        <button onClick={() => {
+                          if (window.confirm("Are you sure you want to delete your account? This action cannot be undone.")) {
+                            localStorage.removeItem('idamata_logged_in');
+                            navigate('/');
+                            window.location.reload();
+                          }
+                        }} style={{
+                          display: 'flex', alignItems: 'center', gap: '0.5rem',
+                          padding: '0.7rem 1.25rem', borderRadius: '12px',
+                          border: 'none', background: '#e11d48',
+                          color: '#fff', fontWeight: 700, fontSize: '0.875rem',
+                          cursor: 'pointer', fontFamily: 'inherit', transition: 'all 0.2s',
+                          boxShadow: '0 4px 14px rgba(225,29,72,0.25)'
+                        }}
+                          onMouseEnter={e => e.currentTarget.style.background = '#be123c'}
+                          onMouseLeave={e => e.currentTarget.style.background = '#e11d48'}
+                        >
+                          <Trash2 size={16} /> Delete Account
                         </button>
                       </div>
                     </div>

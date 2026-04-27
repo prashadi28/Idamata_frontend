@@ -99,9 +99,25 @@ export default function PropertiesListingPage({ onChatClick, onLoginClick }) {
 
   const { categoryId } = useParams();
 
-  // Decide default subcategory based on ID
-  const initialCategory = categoryId === '2' ? 'Land For Sale' : (categoryId === '3' ? 'Apartments For Sale' : (categoryId === '4' ? 'Houses For Rent' : (categoryId === '5' ? 'Apartment Rentals' : (categoryId === '6' ? 'Commercial Property' : 'Houses For Sale'))));
+  // Decide default subcategory based on ID. If no ID, it's "All ads"
+  const initialCategory = categoryId === '2' ? 'Land For Sale' : 
+                         (categoryId === '3' ? 'Apartments For Sale' : 
+                         (categoryId === '4' ? 'Houses For Rent' : 
+                         (categoryId === '5' ? 'Apartment Rentals' : 
+                         (categoryId === '6' ? 'Commercial Property' : 
+                         (categoryId === '1' ? 'Houses For Sale' : '')))));
   const [selectedSubcategory, setSelectedSubcategory] = React.useState(initialCategory);
+
+  React.useEffect(() => {
+    const category = categoryId === '2' ? 'Land For Sale' : 
+                    (categoryId === '3' ? 'Apartments For Sale' : 
+                    (categoryId === '4' ? 'Houses For Rent' : 
+                    (categoryId === '5' ? 'Apartment Rentals' : 
+                    (categoryId === '6' ? 'Commercial Property' : 
+                    (categoryId === '1' ? 'Houses For Sale' : '')))));
+    setSelectedSubcategory(category);
+  }, [categoryId]);
+
   const [priceRange, setPriceRange] = React.useState({ min: '', max: '' });
   const [sizeRange, setSizeRange] = React.useState({ min: 0, max: 100000 });
   const [selectedBeds, setSelectedBeds] = React.useState([]);
@@ -122,7 +138,7 @@ export default function PropertiesListingPage({ onChatClick, onLoginClick }) {
               <LogoSmile size={28} />
               <span className="logo-text">idamata</span>
             </Link>
-            <Link to="/all-ads" className="nav-all-ads" style={{ color: '#fff' }}>All ads</Link>
+            <Link to="/all-ads" className="nav-all-ads" style={{ color: '#fff' }} onClick={() => setSelectedSubcategory('')}>All ads</Link>
             <div className="lang-selector">
               <button className="lang-btn" style={{ color: '#fff' }}>සිංහල</button>
               <button className="lang-btn" style={{ color: '#fff' }}>தமிழ்</button>
@@ -150,7 +166,7 @@ export default function PropertiesListingPage({ onChatClick, onLoginClick }) {
           </div>
 
           <div className="breadcrumb">
-            <Link to="/">Home</Link> <span>›</span> <Link to="/all-ads">All ads</Link> <span>›</span> <Link to="#" onClick={(e) => { e.preventDefault(); setSelectedSubcategory(''); }}>Property</Link> {selectedSubcategory && (<><span>›</span> <strong>{selectedSubcategory}</strong></>)}
+            <Link to="/">Home</Link> <span>›</span> <Link to="/all-ads" onClick={() => setSelectedSubcategory('')}>All ads</Link> <span>›</span> <Link to="#" onClick={(e) => { e.preventDefault(); setSelectedSubcategory(''); }}>Property</Link> {selectedSubcategory && (<><span>›</span> <strong>{selectedSubcategory}</strong></>)}
           </div>
 
           <div className="filter-row">
@@ -254,9 +270,9 @@ export default function PropertiesListingPage({ onChatClick, onLoginClick }) {
         <aside className="listing-sidebar">
           <div className="sidebar-category-tree">
             <ul>
-              <li className="tree-level-1"><Link to="/all-ads">All Categories</Link></li>
+              <li className="tree-level-1"><Link to="/all-ads" onClick={() => setSelectedSubcategory('')}>All Categories</Link></li>
               <li className="tree-level-2">
-                <Home size={16} color="#ff3366" /> <Link to="/category/property">Property</Link>
+                <Home size={16} color="#ff3366" /> <Link to="#" onClick={(e) => { e.preventDefault(); setSelectedSubcategory(''); }}>Property</Link>
               </li>
               {selectedSubcategory ? (
                 <>

@@ -365,6 +365,7 @@ function App() {
       <ChatVerifyModal isOpen={showChatModal} onClose={() => setShowChatModal(false)} />
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/all-ads" element={<PropertiesListingPage onChatClick={() => setShowChatModal(true)} onLoginClick={(ctx = 'login') => setLoginContext(ctx)} />} />
         <Route path="/account" element={<AccountPage />} />
         <Route path="/category/:categoryId" element={<PropertiesListingPage onChatClick={() => setShowChatModal(true)} onLoginClick={(ctx = 'login') => setLoginContext(ctx)} />} />
         <Route path="/sell-fast" element={<SellFastPage onChatClick={() => setShowChatModal(true)} onLoginClick={(ctx = 'login') => setLoginContext(ctx)} />} />

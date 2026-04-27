@@ -121,14 +121,23 @@
   position: absolute;
   top: 1.5rem;
   right: 1.5rem;
-  color: #777;
+  background-color: #f1f5f9;
+  color: #64748b;
+  border: none;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
   display: flex;
   align-items: center;
-  transition: color 0.2s;
+  justify-content: center;
+  transition: all 0.2s;
+  z-index: 9999;
+  cursor: pointer;
 }
 
 .login-close:hover {
-  color: #333;
+  background-color: #e2e8f0;
+  color: #1e293b;
 }
 
 .login-right-title {
@@ -299,7 +308,8 @@
     overflow-y: auto;
   }
 
-  .login-left, .login-right {
+  .login-left,
+  .login-right {
     flex: none;
     max-width: 100%;
     width: 100%;

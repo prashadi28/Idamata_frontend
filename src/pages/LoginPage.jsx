@@ -61,7 +61,7 @@ export default function LoginPage({ onClose, context = 'login' }) {
           <h2 className="login-welcome">{title}</h2>
           <p className="login-sub">{subtitle}</p>
 
-          <ul className="login-features"> 
+          <ul className="login-features">
             <li>
               <span className="feature-icon"><IconPosting /></span>
               <span>Start posting your own ads.</span>
@@ -79,7 +79,7 @@ export default function LoginPage({ onClose, context = 'login' }) {
 
         {/* Right Panel */}
         <div className="login-right">
-          <button onClick={onClose} className="login-close" aria-label="Close" style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}><X size={20} strokeWidth={2.5} /></button>
+          <button onClick={onClose} className="login-close" aria-label="Close"><X size={20} strokeWidth={2.5} /></button>
 
           <h3 className="login-right-title">Continue with mobile number &amp; OTP</h3>
 
